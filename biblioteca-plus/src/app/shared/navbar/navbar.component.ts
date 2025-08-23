@@ -8,8 +8,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   template: `
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand fw-bold" routerLink="/">
-        <span class="me-1">B+</span>
+      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+      <img src="assets/logo.png" alt="" height="25" class="me-2" />
       </a>
 
       <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
