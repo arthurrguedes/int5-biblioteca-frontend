@@ -23,6 +23,12 @@ const cover = (t: string) => `https://via.placeholder.com/300x420?text=${encodeU
       [books]="lawBooks"
       seeMoreLink="/catalogo?cat=direito"
     />
+
+    <app-category-row
+      title="Romance"
+      [books]="romanceBooks"
+      seeMoreLink="/catalogo?cat=romance"
+    />
   `
 })
 export class HomePageComponent {
@@ -42,5 +48,14 @@ export class HomePageComponent {
     { id:10, title:'Direito Tributário', coverUrl: cover('Tributário') },
     { id:11, title:'Processo Civil', coverUrl: cover('Proc. Civil') },
     { id:12, title:'Constitucional', coverUrl: cover('Constitucional') },
+  ];
+
+  romanceBooks: Book[] = [
+    { id:13, title:'Dg', coverUrl: cover('Civil') },
+    { id:14, title:'Diggg', coverUrl: cover('Penal') },
+    { id:15, title:'Direhhh', coverUrl: cover('Trabalho') },
+    { id:16, title:'Dihhh', coverUrl: cover('Tributário') },
+    { id:17, title:'Prhh', coverUrl: cover('Proc. Civil') },
+    { id:18, title:'Conshd', coverUrl: cover('Constitucional') },
   ];
 }
