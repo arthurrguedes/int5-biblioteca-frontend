@@ -23,5 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
     data: { title: 'Contato' }
   },
+  {
+    path: 'emprestimos',
+    loadComponent: () => import('./pages/emprestimos/emprestimos.component').then(m => m.EmprestimosComponent),
+    data: { title: 'Empréstimos' }
+  },
   { path: '**', redirectTo: '' }
 ];

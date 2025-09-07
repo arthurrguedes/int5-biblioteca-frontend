@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Meus empréstimos</h2>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <label>Status:
+      <select [(ngModel)]="filtroStatus">
+        <option value="Vigente">Vigentes</option>
+        <option value="Devolvido">Devolvidos</option>
+        <option value="Todos">Todos</option>
+      </select>
+    </label>
+
+    <label>Período:
+      <select [(ngModel)]="filtroTempo">
+        <option value="6m">Últimos 6 meses</option>
+        <option value="1a">1 Ano</option>
+        <option value="2a">2 Anos</option>
+        <option value="3a">3 Anos</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Lista de empréstimos -->
+  <div class="lista">
+    <div class="card" *ngFor="let e of emprestimosFiltrados">
+      <div class="infos">
+        <p><strong>Título:</strong> {{ e.titulo }}</p>
+        <p><strong>Ano:</strong> {{ e.ano }}</p>
+        <p><strong>Data de início:</strong> {{ e.dataInicio | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Data de término:</strong> {{ e.dataFim | date: 'dd/MM/yyyy' }}</p>
+        <p *ngIf="e.status === 'Devolvido'"><strong>Data de devolução:</strong> {{ e.dataDevolucao | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ e.status }}</p>
+      </div>
+
+      <div class="acoes">
+        <button *ngIf="e.status === 'Vigente'" (click)="renovar(e)" class="btn btn-renovar">Renovar</button>
+        <button *ngIf="e.status === 'Devolvido'" (click)="reservarNovamente(e)" class="btn btn-reservar">Reservar novamente</button>
+      </div>
+    </div>
+  </div>
+</div>
