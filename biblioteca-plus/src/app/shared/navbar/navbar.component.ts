@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService, UserRole } from '../auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, CommonModule],
   template: `
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
-      <img src="assets/logo.png" alt="" height="50" class="me-2" />
+        <img src="assets/logo.png" alt="" height="50" class="me-2" />
       </a>
 
       <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -18,22 +20,78 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
       <div id="nav" class="collapse navbar-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-3">
-          <li class="nav-item"><a routerLink="/sobre-nos" routerLinkActive="active" class="nav-link">Sobre Nós</a></li>
-          <li class="nav-item"><a routerLink="/catalogo"  routerLinkActive="active" class="nav-link">Catálogo</a></li>
-          <li class="nav-item"><a routerLink="/reservas"  routerLinkActive="active" class="nav-link">Reservas</a></li>
-          <li class="nav-item"><a routerLink="/contato"   routerLinkActive="active" class="nav-link">Contato</a></li>
+          <li class="nav-item"><a routerLink="/sobre-nos" class="nav-link">Sobre Nós</a></li>
+          <li class="nav-item"><a routerLink="/catalogo"  class="nav-link">Catálogo</a></li>
+          <li class="nav-item"><a routerLink="/reservas"  class="nav-link">Reservas</a></li>
+          <li class="nav-item"><a routerLink="/contato"   class="nav-link">Contato</a></li>
         </ul>
 
-        <div class="d-flex align-items-center gap-3">
-          <a class="text-white nav-link" routerLink="/login" title="Entrar">
-            <i class="bi bi-person-circle fs-4"></i>
+        <!-- DROPDOWNS -->
+        <div class="dropdown">
+          <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+             href="#" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-4 me-2"></i>
           </a>
-          <button class="btn btn-outline-light d-none d-lg-inline">Entrar</button>
+
+          <!-- Guest -->
+          <ul *ngIf="role === 'guest'" class="dropdown-menu dropdown-menu-end text-small">
+            <li><a class="dropdown-item" (click)="loginAsUser()">Login como Usuário</a></li>
+            <li><a class="dropdown-item" (click)="loginAsAdmin()">Login como Admin</a></li>
+            <li><a class="dropdown-item" routerLink="/cadastro">Cadastrar-se</a></li>
+          </ul>
+
+          <!-- User -->
+          <ul *ngIf="role === 'user'" class="dropdown-menu dropdown-menu-end text-small">
+            <li><a class="dropdown-item" routerLink="/perfil">Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="/emprestimos">Empréstimos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
+          </ul>
+
+          <!-- Admin -->
+          <ul *ngIf="role === 'admin'" class="dropdown-menu dropdown-menu-end text-small">
+            <li><a class="dropdown-item" routerLink="/perfil">Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="/relatorios">Relatórios</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </nav>
   `
 })
+export class NavbarComponent {
+  role: UserRole = 'guest';
 
-export class NavbarComponent {}
+  constructor(private auth: AuthService) {
+    this.auth.role$.subscribe(r => this.role = r);
+  }
+
+  loginAsUser() {
+    this.auth.loginAsUser();
+    this.closeDropdown();
+  }
+
+  loginAsAdmin() {
+    this.auth.loginAsAdmin();
+    this.closeDropdown();
+  }
+
+  logout() {
+    this.auth.logout();
+    this.closeDropdown();
+  }
+
+  private closeDropdown() {
+    const dropdownMenu = document.querySelector('.dropdown-menu.show') as HTMLElement;
+    if (dropdownMenu) {
+      dropdownMenu.classList.remove('show');
+    }
+    const dropdownToggle = document.querySelector('.dropdown-toggle.show') as HTMLElement;
+    if (dropdownToggle) {
+      dropdownToggle.classList.remove('show');
+      dropdownToggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+}
