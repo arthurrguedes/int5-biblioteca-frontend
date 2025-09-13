@@ -1,0 +1,15 @@
+// Importa todos os estilos da página de login.
+// Assim, qualquer mudança lá, reflete aqui também!
+@import '../login-usuario/login-usuario.component.scss';
+
+// Ajustes específicos para a página de cadastro, se necessário.
+.login-box h2 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2.2rem; // Um pouco menor que o da tela de login
+  margin-bottom: 2.5rem; // Mais espaço abaixo do título
+}
+
+// Garante que o placeholder do input de data funcione bem
+input[type="text"]::placeholder {
+  color: #999;
+}
