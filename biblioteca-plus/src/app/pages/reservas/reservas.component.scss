@@ -1,0 +1,34 @@
+.reservas-container {
+  .search-row {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+
+    .emprestimos-icon {
+      font-size: 1.25rem;
+      color: #4b2f6b;
+      text-decoration: none;
+    }
+  }
+
+  .livro-card {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    border:1px dashed #e0b88c;
+    border-radius:8px;
+    margin-bottom:12px;
+
+    .info { display:flex; gap:12px; align-items:center;
+      .capa { width:60px; height:80px; object-fit:cover; }
+    }
+
+    .acoes button { min-width:100px; }
+  }
+
+  .resumo { width:280px; padding:12px; border-radius:8px; border:1px solid #f0d9b6; background:#fff; }
+
+  .link-emprestimos { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3b3b3b; }
+}

@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'reservas',
-    loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
+    loadComponent: () => import('./pages/reservas/reservas.component').then(m => m.ReservasComponent),
     data: { title: 'Reservas' }
   },
   {
