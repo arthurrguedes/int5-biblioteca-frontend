@@ -56,5 +56,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/emprestimos/emprestimos.component').then(m => m.EmprestimosComponent),
     data: { title: 'Empréstimos' }
   },
+  {
+    path: 'relatorios',
+    loadComponent: () => import('./pages/relatorios/relatorios.component').then(m => m.RelatoriosComponent),
+    data: { title: 'Relatórios' }
+  },
   { path: '**', redirectTo: '' }
 ];

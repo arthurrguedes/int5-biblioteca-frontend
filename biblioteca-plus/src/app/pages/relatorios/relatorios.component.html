@@ -1,0 +1,43 @@
+<div class="relatorios-container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <span>/ (usuário) / Relatório</span>
+  </div>
+
+  <!-- Título -->
+  <h2>Meus Relatórios</h2>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <div>
+      <label for="mes">Mês</label>
+      <select id="mes">
+        <option value="">Selecione</option>
+        <option *ngFor="let mes of meses" [value]="mes">{{ mes }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="ano">Ano</label>
+      <select id="ano">
+        <option value="">Selecione</option>
+        <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
+      </select>
+    </div>
+
+    <button class="btn-buscar">
+      Buscar <span class="icon">🔍</span>
+    </button>
+  </div>
+
+  <!-- Tipos de Relatório -->
+  <div class="tipos-relatorio">
+    <div class="header">Tipos de Relatório</div>
+
+    <div class="botoes">
+      <button *ngFor="let rel of relatorios" class="rel-btn">
+        {{ rel }}
+      </button>
+    </div>
+  </div>
+</div>
