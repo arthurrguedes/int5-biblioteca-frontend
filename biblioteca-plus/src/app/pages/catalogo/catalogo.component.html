@@ -1,0 +1,63 @@
+<div class="catalog-container container-xxl my-4">
+  <div class="breadcrumb text-muted small mb-2">
+    <span class="me-1">🏠</span> / (usuário) / <strong>Catálogo</strong>
+  </div>
+
+  <div class="row g-3">
+    <!-- Sidebar -->
+    <aside class="col-12 col-md-3">
+      <nav class="side card border-0 shadow-sm">
+        <div class="card-body py-3">
+          <div class="side-title mb-2">Categorias</div>
+          <ul class="list-unstyled mb-0">
+            <li><button class="side-link" [class.active]="catSelecionada==='Todas'" (click)="selecionarCategoria('Todas')">Todas</button></li>
+            <li *ngFor="let c of categorias">
+              <button class="side-link" [class.active]="catSelecionada===c" (click)="selecionarCategoria(c)">{{ c }}</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="col-12 col-md-9">
+      <!-- Busca -->
+      <div class="topbar d-flex justify-content-end mb-3">
+        <div class="search input-group">
+          <input class="form-control" [(ngModel)]="q" (keyup.enter)="pesquisar()" placeholder="Digite o nome do livro ou autor" />
+          <button type="button" class="input-group-text btn-search" (click)="pesquisar()" aria-label="Pesquisar">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Seções -->
+      <section *ngFor="let cat of secoes()" class="section-box p-3 p-md-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <span class="badge-cat">{{ cat }}</span>
+          <button type="button" class="see-more" (click)="verMais(cat)">Ver mais</button>
+        </div>
+
+        <div class="books-row">
+          <a *ngFor="let l of livrosDaCategoria(cat)"
+             class="book-card"
+             [routerLink]="['/catalogo/livro', l.id]"
+             [queryParams]="{ cat: l.categoria.toLowerCase() }">
+            <div class="cover"><img [src]="l.capa" [alt]="l.titulo" /></div>
+            <div class="meta">
+              <div class="title" [title]="l.titulo">{{ l.titulo }}</div>
+              <div class="author text-muted small">{{ l.autor }}</div>
+            </div>
+          </a>
+
+          <div *ngIf="livrosDaCategoria(cat).length === 0" class="placeholder-wrap">
+            <div class="placeholder" *ngFor="let _ of [1,2,3,4,5,6]">
+              <div class="ph-cover"></div>
+              <div class="ph-title"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>

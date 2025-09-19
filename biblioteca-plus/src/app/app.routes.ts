@@ -25,8 +25,21 @@ export const routes: Routes = [
   },
   {
     path: 'catalogo',
-    loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
+    loadComponent: () =>
+      import('./pages/catalogo/catalogo.component').then(m => m.CatalogoPageComponent),
     data: { title: 'Catálogo' }
+  },
+  {
+    path: 'catalogo/livro/:id',
+    loadComponent: () =>
+      import('./pages/livro-detalhe/livro-detalhe.component').then(m => m.LivroDetalheComponent),
+    data: { title: 'Catálogo' }
+  },
+
+  {
+    path: 'estoque',
+    loadComponent: () => import('./pages/estoque/estoque.component').then(m => m.EstoquePageComponent),
+    data: { title: 'Estoque' }
   },
   {
     path: 'reservas',
