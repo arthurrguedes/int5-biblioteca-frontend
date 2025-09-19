@@ -1,0 +1,169 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 70px); // Altura da tela menos o navbar
+  background-color: #ffffff;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 2rem;
+  width: 100%;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Times New Roman', Times, serif; // Fonte mais próxima da imagem
+  font-size: 2.5rem;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+  margin-bottom: 1.5rem;
+  color: #777;
+  text-decoration: none;
+
+  // Estilo específico para o link "Redefina aqui"
+  a {
+    color: var(--brand-purple); // Usando a cor roxa do seu projeto
+    font-weight: 500;
+    // text-decoration: underline;
+  }
+}
+
+.login-prompt {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.user-type-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 2px; // Pequeno espaço entre os botões
+}
+
+.tab-btn {
+  padding: 10px 30px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #E9E9E9;
+  color: #555;
+  text-decoration: none; // Para a tag <a>
+  display: inline-block; // Para a tag <a>
+
+  &:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  &:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &.active {
+    background-color: #C9B2E9; // Roxo exato da imagem
+    color: #4d3b72;
+    border-color: #C9B2E9;
+  }
+}
+
+.login-form {
+  .input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 18px 18px 18px 60px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #E9E9E9;
+      font-size: 1rem;
+      color: #555;
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+  }
+}
+
+.btn-login {
+  width: 100%;
+  padding: 16px;
+  background-color: #31213E; // Roxo bem escuro do botão
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #4a3a59;
+  }
+}
+
+.signup-link {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #777;
+
+  a {
+    color: #777;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.book-icons {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  display: flex;
+  gap: 30px;
+  opacity: 0.8;
+
+  .book-icon {
+    width: 120px;
+    height: 120px;
+    color: #333;
+  }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
+}

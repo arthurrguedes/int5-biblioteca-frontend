@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService, UserRole } from '../auth/auth.service';
 
@@ -26,21 +26,18 @@ import { AuthService, UserRole } from '../auth/auth.service';
           <li class="nav-item"><a routerLink="/contato"   class="nav-link">Contato</a></li>
         </ul>
 
-        <!-- DROPDOWNS -->
         <div class="dropdown">
           <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
              href="#" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle fs-4 me-2"></i>
           </a>
 
-          <!-- Guest -->
           <ul *ngIf="role === 'guest'" class="dropdown-menu dropdown-menu-end text-small">
-            <li><a class="dropdown-item" (click)="loginAsUser()">Login como Usuário</a></li>
-            <li><a class="dropdown-item" (click)="loginAsAdmin()">Login como Admin</a></li>
+            <li><a class="dropdown-item" routerLink="/login-usuario">Login como Usuário</a></li>
+            <li><a class="dropdown-item" routerLink="/login-admin">Login como Admin</a></li>
             <li><a class="dropdown-item" routerLink="/cadastro">Cadastrar-se</a></li>
           </ul>
 
-          <!-- User -->
           <ul *ngIf="role === 'user'" class="dropdown-menu dropdown-menu-end text-small">
             <li><a class="dropdown-item" routerLink="/perfil">Perfil</a></li>
             <li><a class="dropdown-item" routerLink="/emprestimos">Empréstimos</a></li>
@@ -48,7 +45,6 @@ import { AuthService, UserRole } from '../auth/auth.service';
             <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
           </ul>
 
-          <!-- Admin -->
           <ul *ngIf="role === 'admin'" class="dropdown-menu dropdown-menu-end text-small">
             <li><a class="dropdown-item" routerLink="/perfil">Perfil</a></li>
             <li><a class="dropdown-item" routerLink="/relatorios">Relatórios</a></li>
@@ -64,34 +60,24 @@ import { AuthService, UserRole } from '../auth/auth.service';
 export class NavbarComponent {
   role: UserRole = 'guest';
 
-  constructor(private auth: AuthService) {
+  // Injetando o Router para poder navegar após o logout
+  constructor(private auth: AuthService, private router: Router) {
     this.auth.role$.subscribe(r => this.role = r);
   }
 
+  // A lógica de login real (clicar em 'Entrar' nas páginas de login)
+  // deve chamar estes métodos do seu AuthService.
+  // Os botões do navbar agora apenas redirecionam.
   loginAsUser() {
     this.auth.loginAsUser();
-    this.closeDropdown();
   }
 
   loginAsAdmin() {
     this.auth.loginAsAdmin();
-    this.closeDropdown();
   }
 
   logout() {
     this.auth.logout();
-    this.closeDropdown();
-  }
-
-  private closeDropdown() {
-    const dropdownMenu = document.querySelector('.dropdown-menu.show') as HTMLElement;
-    if (dropdownMenu) {
-      dropdownMenu.classList.remove('show');
-    }
-    const dropdownToggle = document.querySelector('.dropdown-toggle.show') as HTMLElement;
-    if (dropdownToggle) {
-      dropdownToggle.classList.remove('show');
-      dropdownToggle.setAttribute('aria-expanded', 'false');
-    }
+    this.router.navigate(['/']); // Redireciona para a home após o logout
   }
 }
