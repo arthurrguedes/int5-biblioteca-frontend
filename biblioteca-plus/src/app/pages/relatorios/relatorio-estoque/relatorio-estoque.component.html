@@ -1,0 +1,19 @@
+<div class="relatorios-container">
+  <app-breadcrumb [titulo]="'Relatório de Estoque'"></app-breadcrumb>
+  <app-filtros
+    [meses]="meses"
+    [anos]="anos"
+    [(selectedMes)]="selectedMes"
+    [(selectedAno)]="selectedAno"
+    [isBuscarEnabled]="isBuscarEnabled"
+    (buscarClick)="buscarRelatorio()"
+  ></app-filtros>
+
+  <app-tipos-relatorio [titulo]="'Estoque'" [relatorios]="['Estoque']"></app-tipos-relatorio>
+
+  <div class="conteudo-relatorio">
+    <button class="btn-laranja">Livros em Estoque</button>
+  </div>
+
+  <app-acoes-relatorio></app-acoes-relatorio>
+</div>

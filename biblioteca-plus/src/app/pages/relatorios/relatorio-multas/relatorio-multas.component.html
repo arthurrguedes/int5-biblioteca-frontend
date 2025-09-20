@@ -1,0 +1,20 @@
+<div class="relatorios-container">
+  <app-breadcrumb [titulo]="'Relatório de Multas'"></app-breadcrumb>
+  
+  <app-filtros
+    [meses]="meses"
+    [anos]="anos"
+    [(selectedMes)]="selectedMes"
+    [(selectedAno)]="selectedAno"
+    [isBuscarEnabled]="isBuscarEnabled"
+    (buscarClick)="buscarRelatorio()"
+  ></app-filtros>
+
+  <app-tipos-relatorio [titulo]="'Multas'" [relatorios]="['Multas']"></app-tipos-relatorio>
+
+  <div class="conteudo-relatorio">
+    <button class="btn-laranja">Multas Pagas/Em Aberto</button>
+  </div>
+
+  <app-acoes-relatorio></app-acoes-relatorio>
+</div>

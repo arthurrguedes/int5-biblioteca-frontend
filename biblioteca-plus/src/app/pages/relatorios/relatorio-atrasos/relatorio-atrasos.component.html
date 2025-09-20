@@ -1,0 +1,19 @@
+<div class="relatorios-container">
+  <app-breadcrumb [titulo]="'Relatório de Atrasos'"></app-breadcrumb>
+  <app-filtros
+    [meses]="meses"
+    [anos]="anos"
+    [(selectedMes)]="selectedMes"
+    [(selectedAno)]="selectedAno"
+    [isBuscarEnabled]="isBuscarEnabled"
+    (buscarClick)="buscarRelatorio()"
+  ></app-filtros>
+
+  <app-tipos-relatorio [titulo]="'Atrasos'" [relatorios]="['Atrasos']"></app-tipos-relatorio>
+
+  <div class="conteudo-relatorio">
+    <button class="btn-laranja">Empréstimos Atrasados</button>
+  </div>
+
+  <app-acoes-relatorio></app-acoes-relatorio>
+</div>

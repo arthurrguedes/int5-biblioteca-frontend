@@ -1,0 +1,12 @@
+<div class="tipos-relatorio">
+  <div class="header">{{ titulo }}</div>
+  <div class="botoes">
+    <button 
+      *ngFor="let rel of relatorios" 
+      class="rel-btn" 
+      [class.selected]="selectedRelatorio === rel" 
+      (click)="selecionar(rel)">
+      {{ rel }}
+    </button>
+  </div>
+</div>
