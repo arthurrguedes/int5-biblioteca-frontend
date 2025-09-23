@@ -1,0 +1,127 @@
+.container {
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .page-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #4a2c82;
+    text-align: left; /* Alinhamento à esquerda */
+  }
+  
+  .bloco-contato {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #d97a0f;
+    border-radius: 12px;
+    padding: 16px 16px 16px 16px;
+  }
+  
+  .btn-laranja {
+    position: absolute;
+    top: -14px; /* Botão parece cortado pela borda */
+    left: 16px;
+    background-color: #d97a0f;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 16px;
+    border: none;
+    border-radius: 6px;
+    z-index: 2;
+    cursor: default;
+    user-select: none;
+    width: 140px; /* Tamanho fixo */
+    text-align: center;
+  }
+  
+  .caixa-branca {
+    background-color: #fff;
+    color: #333;
+    margin-top: 28px;
+    font-size: 14px;
+  }
+  
+  .formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+  
+  input,
+  textarea {
+    margin-top: 4px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    resize: vertical;
+  }
+  
+  .btn-enviar {
+    align-self: flex-start;
+    background-color: #5c3b85;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-enviar:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+  
+  .redes-sociais a {
+    color: #5c3b85;
+    text-decoration: none;
+    margin: 0 6px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .redes-sociais i {
+    font-size: 18px;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 16px;
+    }
+  
+    .btn-laranja {
+      width: 140px;
+      position: absolute;
+      top: -11px;
+      left: 16px;
+      text-align: center;
+    }
+  
+    .caixa-branca {
+      margin-top: 28px;
+    }
+  
+    .btn-enviar {
+      width: auto;
+    }
+  }
+  

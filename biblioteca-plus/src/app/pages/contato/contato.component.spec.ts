@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ContatoComponent } from './contato.component';
+import { ContentBoxComponent } from '../../shared/content-box/content-box.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 describe('ContatoComponent', () => {
   let component: ContatoComponent;
@@ -8,9 +10,9 @@ describe('ContatoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContatoComponent]
-    })
-    .compileComponents();
+      declarations: [ContatoComponent, ContentBoxComponent],
+      imports: [CommonModule, FormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ContatoComponent);
     component = fixture.componentInstance;
@@ -19,5 +21,16 @@ describe('ContatoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call onSubmit and show alert', () => {
+    spyOn(window, 'alert'); // Espiona o alert global
+    component.onSubmit();
+    expect(window.alert).toHaveBeenCalledWith('Mensagem enviada com sucesso!');
+  });
+
+  it('should render the page title', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.page-title').textContent).toContain('Contatos');
   });
 });
