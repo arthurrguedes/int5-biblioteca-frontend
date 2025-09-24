@@ -1,0 +1,33 @@
+.acoes-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+
+  .btn-atualizar, .btn-exportar {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .btn-atualizar {
+    background-color: #d97a0f;
+    color: white;
+    &:hover {
+      background-color: #b9640d;
+    }
+  }
+
+  .btn-exportar {
+    background-color: #28a745;
+    color: white;
+    &:hover {
+      background-color: #218838;
+    }
+  }
+}

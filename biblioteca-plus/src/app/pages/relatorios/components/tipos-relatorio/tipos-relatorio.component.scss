@@ -1,0 +1,78 @@
+.tipos-relatorio {
+  position: relative;
+  border: 1px solid #f1b973;
+  border-radius: 6px;
+  padding: 20px 15px 15px 15px;
+  margin-top: 20px;
+
+  .header {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    transform: translateY(-50%);
+    background-color: #d97a0f;
+    color: white;
+    font-weight: bold;
+    padding: 4px 12px;
+    font-size: 14px;
+    border-radius: 10px;
+    z-index: 1;
+    white-space: nowrap;
+  }
+
+  .botoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    .rel-btn {
+      background-color: #5c3b85;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 0;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      min-width: 150px;
+      height: 45px;
+      transition: background-color 0.3s;
+
+      &.selected {
+        background-color: #d97a0f;
+      }
+
+      &:hover {
+        background-color: #4a2f6b;
+      }
+    }
+  }
+}
+
+/* --- Responsividade --- */
+
+/* Tablets (até 1024px) -> 2 colunas */
+@media (max-width: 1024px) {
+  .tipos-relatorio .botoes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Celulares (até 600px) -> 1 coluna */
+@media (max-width: 600px) {
+  .tipos-relatorio {
+    padding: 15px;
+
+    .botoes {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .rel-btn {
+      min-width: unset; /* libera a largura fixa */
+      width: 100%;      /* ocupa toda a linha */
+    }
+  }
+}

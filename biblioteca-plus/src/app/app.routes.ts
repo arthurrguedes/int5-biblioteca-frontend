@@ -61,5 +61,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/relatorios/relatorios.component').then(m => m.RelatoriosComponent),
     data: { title: 'Relatórios' }
   },
+  {
+    path: 'relatorio-usuario',
+    loadComponent: () => import('./pages/relatorios/relatorio-usuario/relatorio-usuario.component').then(m => m.RelatorioUsuarioComponent),
+    data: { title: 'Relatório de Usuário' }
+  },
   { path: '**', redirectTo: '' }
 ];

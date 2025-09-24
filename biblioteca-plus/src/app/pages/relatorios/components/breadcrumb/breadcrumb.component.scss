@@ -1,0 +1,20 @@
+.breadcrumb {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+
+  a {
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    font-weight: bold;
+    color: #000;
+  }
+}
