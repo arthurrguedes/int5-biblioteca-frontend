@@ -1,63 +1,158 @@
-// .relatorios-container {
-//   padding: 20px;
-//   padding-left: 90px;
-//   padding-right: 90px;
-// }
-
-// h2 {
-//   font-size: 20px;
-//   margin-bottom: 12px;
-// }
-
-// /* customização rápida para os botões que ficam na lista de tipos (herda estilos do tipos-relatorio) */
-// .app-tipos-relatorio { margin-top: 8px; }
-
-
-// .relatorios-container {
-//   padding: 20px;
-//   padding-left: 90px;
-//   padding-right: 90px;
-
-//   h2 {
-//     font-size: 20px;
-//     margin-bottom: 20px;
-//   }
-
-//   .app-tipos-relatorio {
-//     margin-top: 8px;
-//   }
-// }
-
-
-
 .relatorios-container {
-  padding: 20px 90px; // cima/baixo 20px, laterais 90px
-
-  h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    padding: 20px;
+  
+    .breadcrumb {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+  
+    h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 30px;
+  
+      div {
+        flex: 1 1 180px;
+      }
+  
+      label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+  
+      select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 100%;
+        height: 38px;
+      }
+  
+      .btn-buscar {
+        background-color: #ccc; /* Cor inicial */
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: not-allowed; /* Inicia desabilitado */
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: bold;
+        white-space: nowrap;
+        height: 38px;
+  
+        &.enabled {
+          background-color: #d97a0f; /* Cor laranja quando habilitado */
+          cursor: pointer;
+        }
+  
+        &:hover {
+          background-color: #b9640d;
+        }
+  
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  
+    .tipos-relatorio {
+      position: relative;
+      border: 1px solid #f1b973;
+      border-radius: 6px;
+      padding: 20px 15px 15px 15px;
+      margin-top: 20px;
+  
+      .header {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        transform: translateY(-50%);
+        background-color: #d97a0f;
+        color: white;
+        font-weight: bold;
+        padding: 4px 12px;
+        font-size: 14px;
+        border-radius: 10px;
+        z-index: 1;
+        white-space: nowrap;
+      }
+  
+      .botoes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+  
+        .rel-btn {
+          background-color: #5c3b85; /* Cor inicial dos botões */
+          color: white;
+          border: none;
+          border-radius: 20px;
+          padding: 12px 0;
+          font-weight: bold;
+          cursor: pointer;
+          text-align: center;
+          width: 100%;
+          min-width: 150px;
+          height: 45px;
+          transition: background-color 0.3s;
+  
+          &.selected {
+            background-color: #d97a0f; /* Cor laranja quando o botão de relatório é selecionado */
+            color: white; /* Cor do texto também em branco */
+          }
+  
+          &:hover {
+            background-color: #4a2f6b;
+          }
+        }
+      }
+    }
+  
+    // Responsivo
+    @media (max-width: 1024px) {
+      .tipos-relatorio .botoes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  
+    @media (max-width: 600px) {
+      .tipos-relatorio .botoes {
+        grid-template-columns: 1fr;
+      }
+  
+      .filtros {
+        flex-direction: column;
+  
+        .btn-buscar {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+  
+      h2 {
+        font-size: 18px;
+      }
+  
+      .breadcrumb {
+        font-size: 11px;
+      }
+  
+      .rel-btn {
+        font-size: 14px;
+        height: 40px;
+      }
+    }
   }
-
-  .app-tipos-relatorio {
-    margin-top: 8px;
-  }
-}
-
-/* Telas médias (tablets) */
-@media (max-width: 1024px) {
-  .relatorios-container {
-    padding: 20px 50px;
-  }
-}
-
-/* Telas pequenas (celulares) */
-@media (max-width: 768px) {
-  .relatorios-container {
-    padding: 15px 20px;
-  }
-
-  .relatorios-container h2 {
-    font-size: 18px;
-    text-align: center; // melhora em telas pequenas
-  }
-}
+  
