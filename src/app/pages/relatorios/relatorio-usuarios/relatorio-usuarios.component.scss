@@ -1,0 +1,13 @@
+.relatorios-container { padding: 20px 90px; }
+h2 { margin-bottom: 12px; }
+
+.usuarios-content { display:flex; align-items:center; gap:12px; }
+.btn-laranja {
+  background-color: #d97a0f;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.msg { font-size: 14px; color: #fff; margin-left: 6px; }

@@ -1,0 +1,53 @@
+<div class="perfil-container">
+  <h1 class="titulo">Meu Perfil</h1>
+
+  <div class="perfil-box">
+    <div class="avatar-container">
+      <div class="avatar-wrapper">
+        <img 
+          *ngIf="imagemPerfil; else iconePadrao" 
+          [src]="imagemPerfil" 
+          alt="Foto de perfil" 
+          class="avatar" 
+        />
+        <ng-template #iconePadrao>
+          <div class="avatar avatar-icone">
+            <i class="bi bi-person-circle"></i>
+          </div>
+        </ng-template>
+
+        <label class="edit-icon" title="Alterar imagem">
+          <i class="bi bi-camera-fill"></i>
+          <input type="file" (change)="trocarImagem($event)" accept="image/*" />
+        </label>
+      </div>
+    </div>
+    
+    <div class="campo">
+      <label>Nome completo:</label>
+      <p>{{ nome }}</p>
+    </div>
+
+    <div class="campo">
+      <label>Email:</label>
+      <p>{{ email }}</p>
+    </div>
+
+    <div class="campo">
+      <label>Data de nascimento:</label>
+      <p>{{ nascimento }}</p>
+    </div>
+
+    <div class="campo">
+      <label>Telefone:</label>
+      <p>{{ telefone }}</p>
+    </div>
+
+    <div class="campo">
+      <label>Endereço:</label>
+      <p>{{ endereco }}</p>
+    </div>
+
+    <button class="btn-editar" (click)="editarPerfil()">Editar Perfil</button>
+  </div>
+</div>

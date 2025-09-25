@@ -1,0 +1,19 @@
+<div class="relatorios-container">
+  <app-breadcrumb [titulo]="'Relatório de Usuários'"></app-breadcrumb>
+  <app-filtros
+    [meses]="meses"
+    [anos]="anos"
+    [(selectedMes)]="selectedMes"
+    [(selectedAno)]="selectedAno"
+    [isBuscarEnabled]="isBuscarEnabled"
+    (buscarClick)="buscarRelatorio()"
+  ></app-filtros>
+
+  <app-tipos-relatorio [titulo]="'Usuários'" [relatorios]="['Usuários']"></app-tipos-relatorio>
+
+  <div class="conteudo-relatorio">
+    <button class="btn-laranja">Usuários Ativos/Inativos</button>
+  </div>
+
+  <app-acoes-relatorio></app-acoes-relatorio>
+</div>

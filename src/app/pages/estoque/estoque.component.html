@@ -1,0 +1,84 @@
+<div class="estoque-container container-xxl my-4">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb text-muted small mb-2">
+    <span class="me-1">🏠</span> / (usuário) / <strong>Estoque</strong> / <span *ngIf="catSelecionada !== 'Todas'">{{ catSelecionada }}</span>
+  </div>
+
+  <div class="row g-3">
+    <!-- Sidebar -->
+    <aside class="col-12 col-md-3">
+      <nav class="side card border-0 shadow-sm">
+        <div class="card-body py-3">
+          <div class="side-title mb-2">Nosso acervo</div>
+          <ul class="list-unstyled mb-0">
+            <li><button class="side-link" [class.active]="catSelecionada==='Todas'" (click)="selecionarCategoria('Todas')">Todas</button></li>
+            <li *ngFor="let c of categorias">
+              <button class="side-link" [class.active]="catSelecionada===c" (click)="selecionarCategoria(c)">{{ c }}</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="col-12 col-md-9">
+      <div class="topbar d-flex justify-content-between align-items-center mb-3">
+        <h2 class="page-title m-0">{{ tituloSecao }}</h2>
+        <div class="search input-group">
+          <input class="form-control" [(ngModel)]="q" (keyup.enter)="pesquisar()" placeholder="Digite o nome do livro ou autor" />
+          <button type="button" class="input-group-text btn-search" (click)="pesquisar()" aria-label="Pesquisar">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cabeçalho da tabela -->
+      <div class="grid-head">
+        <div class="col-livro">Livro</div>
+        <div class="col-estoque">Estoque Atual</div>
+        <div class="col-status">Status</div>
+      </div>
+
+      <!-- Linhas -->
+      <div class="list">
+        <div class="row-item" *ngFor="let item of itensFiltrados">
+          <!-- COLUNA LIVRO -->
+          <div class="col-livro">
+            <label class="check">
+              <input type="checkbox" [(ngModel)]="item.checked" />
+              <span class="box"></span>
+            </label>
+            <div class="thumb">
+              <img [src]="item.livro.capa" [alt]="item.livro.titulo" />
+            </div>
+            <div class="info">
+              <div class="book-title" [title]="item.livro.titulo">{{ item.livro.titulo }}</div>
+              <div class="book-author">Autor(a): {{ item.livro.autor }}</div>
+            </div>
+          </div>
+
+          <!-- COLUNA ESTOQUE -->
+          <div class="col-estoque">
+            <button class="qty-btn" (click)="dec(item)" [disabled]="(item.estoque||0) === 0">−</button>
+            <input class="qty-input" type="number" [(ngModel)]="item.estoque" (blur)="blurQuantidade(item)" min="0" />
+            <button class="qty-btn" (click)="inc(item)">+</button>
+          </div>
+
+          <!-- COLUNA STATUS -->
+          <div class="col-status">
+            <span class="status" [class.ok]="statusClasse(item)==='ok'"
+                                [class.last]="statusClasse(item)==='last'"
+                                [class.no]="statusClasse(item)==='no'">
+              {{ statusTexto(item) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Sem resultados -->
+        <div class="empty" *ngIf="itensFiltrados.length === 0">
+          Nenhum livro encontrado.
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
