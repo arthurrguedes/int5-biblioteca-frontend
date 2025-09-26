@@ -78,7 +78,7 @@ export const routes: Routes = [
   },
   {
     path: 'relatorio-usuario',
-    loadComponent: () => import('./pages/relatorios/relatorio-usuario/relatorio-usuario.component').then(m => m.RelatorioUsuarioComponent),
+    loadComponent: () => import('./pages/relatorios/relatorio-usuarios/relatorio-usuarios.component').then(m => m.RelatorioUsuariosComponent),
     data: { title: 'Relatório de Usuário' }
   },
   

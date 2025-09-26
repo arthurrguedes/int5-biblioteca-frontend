@@ -1,13 +1,49 @@
-.relatorios-container { padding: 20px 90px; }
-h2 { margin-bottom: 12px; }
+/* Estilo para o contêiner do relatório de usuários */
+.relatorios-container {
+  padding: 40px 0; /* Ajuste o padding para dar espaçamento vertical */
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
 
-.usuarios-content { display:flex; align-items:center; gap:12px; }
+/* Estilo para o título principal (h2) */
+h2 {
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: #4a2c82;
+  text-align: left; /* Alinhamento à esquerda */
+}
+
+/* Estilo para os botões dentro do conteúdo */
+.conteudo-relatorio {
+  margin-top: 20px;
+}
+
 .btn-laranja {
-  background-color: #d97a0f;
-  color: white;
+  background: #d97a0f;
   border: none;
+  color: white;
   padding: 8px 14px;
   border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
 }
-.msg { font-size: 14px; color: #fff; margin-left: 6px; }
+
+.btn-laranja:hover {
+  background-color: #bf6a0a;
+}
+
+/* Responsividade para telas pequenas (celulares) */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 28px; /* Reduz o tamanho do título em telas pequenas */
+  }
+
+  .conteudo-relatorio {
+    text-align: center; /* Ajusta o alinhamento do conteúdo */
+  }
+
+  .btn-laranja {
+    padding: 10px 16px; /* Aumenta o tamanho do botão em telas pequenas */
+  }
+}

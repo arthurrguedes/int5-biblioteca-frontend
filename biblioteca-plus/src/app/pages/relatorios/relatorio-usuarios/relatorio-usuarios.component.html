@@ -1,19 +1,27 @@
-<div class="relatorios-container">
-  <app-breadcrumb [titulo]="'Relatório de Usuários'"></app-breadcrumb>
-  <app-filtros
-    [meses]="meses"
-    [anos]="anos"
-    [(selectedMes)]="selectedMes"
-    [(selectedAno)]="selectedAno"
-    [isBuscarEnabled]="isBuscarEnabled"
-    (buscarClick)="buscarRelatorio()"
-  ></app-filtros>
+<div class="container">
+  <div class="relatorios-container">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [titulo]="'Relatório de Usuários'"></app-breadcrumb>
 
-  <app-tipos-relatorio [titulo]="'Usuários'" [relatorios]="['Usuários']"></app-tipos-relatorio>
+    <!-- Filtros -->
+    <app-filtros
+      [meses]="meses"
+      [anos]="anos"
+      [(selectedMes)]="selectedMes"
+      [(selectedAno)]="selectedAno"
+      [isBuscarEnabled]="isBuscarEnabled"
+      (buscarClick)="buscarRelatorio()"
+    ></app-filtros>
 
-  <div class="conteudo-relatorio">
-    <button class="btn-laranja">Usuários Ativos/Inativos</button>
+    <!-- Tipos de Relatório -->
+    <app-tipos-relatorio [titulo]="'Usuários'" [relatorios]="['Usuários']"></app-tipos-relatorio>
+
+    <!-- Conteúdo do Relatório -->
+    <div class="conteudo-relatorio">
+      <button class="btn-laranja">Usuários Ativos/Inativos</button>
+    </div>
+
+    <!-- Ações do Relatório -->
+    <app-acoes-relatorio></app-acoes-relatorio>
   </div>
-
-  <app-acoes-relatorio></app-acoes-relatorio>
 </div>
