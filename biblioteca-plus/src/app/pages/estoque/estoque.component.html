@@ -1,11 +1,9 @@
 <div class="estoque-container container-xxl my-4">
-  <!-- Breadcrumb -->
   <div class="breadcrumb text-muted small mb-2">
     <span class="me-1">🏠</span> / (usuário) / <strong>Estoque</strong> / <span *ngIf="catSelecionada !== 'Todas'">{{ catSelecionada }}</span>
   </div>
 
   <div class="row g-3">
-    <!-- Sidebar -->
     <aside class="col-12 col-md-3">
       <nav class="side card border-0 shadow-sm">
         <div class="card-body py-3">
@@ -20,7 +18,6 @@
       </nav>
     </aside>
 
-    <!-- Conteúdo -->
     <main class="col-12 col-md-9">
       <div class="topbar d-flex justify-content-between align-items-center mb-3">
         <h2 class="page-title m-0">{{ tituloSecao }}</h2>
@@ -36,13 +33,19 @@
       <div class="grid-head">
         <div class="col-livro">Livro</div>
         <div class="col-estoque">Estoque Atual</div>
-        <div class="col-status">Status</div>
+        <div class="col-status d-flex align-items-center gap-2">
+          <select class="form-select form-select-sm" [(ngModel)]="statusFiltro">
+            <option value="Todos">Todos</option>
+            <option value="Disponível">Disponíveis</option>
+            <option value="Último exemplar">Últimos exemplares</option>
+            <option value="Indisponível">Indisponíveis</option>
+          </select>
+        </div>
       </div>
 
       <!-- Linhas -->
       <div class="list">
         <div class="row-item" *ngFor="let item of itensFiltrados">
-          <!-- COLUNA LIVRO -->
           <div class="col-livro">
             <label class="check">
               <input type="checkbox" [(ngModel)]="item.checked" />
@@ -57,14 +60,12 @@
             </div>
           </div>
 
-          <!-- COLUNA ESTOQUE -->
           <div class="col-estoque">
             <button class="qty-btn" (click)="dec(item)" [disabled]="(item.estoque||0) === 0">−</button>
             <input class="qty-input" type="number" [(ngModel)]="item.estoque" (blur)="blurQuantidade(item)" min="0" />
             <button class="qty-btn" (click)="inc(item)">+</button>
           </div>
 
-          <!-- COLUNA STATUS -->
           <div class="col-status">
             <span class="status" [class.ok]="statusClasse(item)==='ok'"
                                 [class.last]="statusClasse(item)==='last'"
@@ -74,7 +75,6 @@
           </div>
         </div>
 
-        <!-- Sem resultados -->
         <div class="empty" *ngIf="itensFiltrados.length === 0">
           Nenhum livro encontrado.
         </div>
