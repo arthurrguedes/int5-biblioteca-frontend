@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Controle de Reservas</h2>
+
+  <!-- Tabela de reservas -->
+  <table>
+    <thead>
+      <tr>
+        <th>Usuário</th>
+        <th>Livro</th>
+        <th>Autor (a)</th>
+        <th>Quantidade</th>
+        <th>Data da Solicitação</th>
+        <th>Classificação</th>
+        <th>Situação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reserva of reservasFiltradas"
+          (click)="selecionarReserva(reserva)"
+          [class.selected]="reserva === reservaSelecionada">
+        <td>{{ reserva.usuario }}</td>
+        <td>{{ reserva.livro }}</td>
+        <td>{{ reserva.autor }}</td>
+        <td>{{ reserva.quantidade }}</td>
+        <td>{{ reserva.data }}</td>
+        <td>{{ reserva.classificacao }}</td>
+        <td>{{ reserva.situacao }}</td>
+      </tr>
+      <tr *ngIf="reservasFiltradas.length === 0">
+        <td colspan="7" style="text-align:center;">Nenhuma reserva encontrada</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal de aprovação -->
+<div class="modal" *ngIf="reservaSelecionada" (click)="reservaSelecionada = null">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Aprovação da Reserva</h3>
+    <p><strong>Usuário:</strong> {{ reservaSelecionada?.usuario }}</p>
+    <p><strong>Livro:</strong> {{ reservaSelecionada?.livro }}</p>
+    <p><strong>Quantidade:</strong> {{ reservaSelecionada?.quantidade }}</p>
+    <p><strong>Classificação:</strong> {{ reservaSelecionada?.classificacao }}º na fila</p>
+
+    <div class="actions">
+      <button class="btn-autorizar" (click)="autorizar()">Autorizar</button>
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

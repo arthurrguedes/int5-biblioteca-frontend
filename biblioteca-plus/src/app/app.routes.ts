@@ -19,6 +19,11 @@ export const routes: Routes = [
     data: { title: 'Reservas' }
   },
   {
+    path: 'controle-reservas',
+    loadComponent: () => import('./pages/controle-reservas/controle-reservas.component').then(m => m.ControleReservasComponent),
+    data: { title: 'Controle de Reservas' }
+  },  
+  {
     path: 'contato',
     loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
     data: { title: 'Contato' }
