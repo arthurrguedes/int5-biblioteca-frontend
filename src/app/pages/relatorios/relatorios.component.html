@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="relatorios-container">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [titulo]="'Relatórios'"></app-breadcrumb>
+
+    <!-- Título -->
+    <h1 class="page-title">Meus Relatórios</h1>
+
+    <!-- Filtros -->
+    <app-filtros
+      [meses]="meses"
+      [anos]="anos"
+      [(selectedMes)]="selectedMes"
+      [(selectedAno)]="selectedAno"
+      [isBuscarEnabled]="isBuscarEnabled"
+      (buscarClick)="buscarRelatorio()"
+    ></app-filtros>
+
+    <!-- Tipos de Relatório -->
+    <app-tipos-relatorio
+      [titulo]="'Tipos de Relatório'"
+      [relatorios]="relatorios"
+      [selectedRelatorio]="selectedRelatorio"
+      (selectRelatorio)="selecionarRelatorio($event)"
+    ></app-tipos-relatorio>
+
+    <!-- Ações do Relatório -->
+    <!-- <app-acoes-relatorio></app-acoes-relatorio> -->
+  </div>
+</div>
