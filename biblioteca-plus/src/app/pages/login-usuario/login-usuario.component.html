@@ -12,7 +12,7 @@
             <a routerLink="/login-admin" class="tab-btn">Bibliotecário</a>
         </div>
 
-        <form class="login-form" #loginForm="ngForm">
+        <form class="login-form" #loginForm="ngForm" (ngSubmit)="entrar()">
             <div class="input-group">
                 <i class="bi bi-person"></i>
                 <input type="email" placeholder="Digite seu email" required [(ngModel)]="email" name="email">
@@ -26,7 +26,7 @@
                 Esqueceu sua senha?<a routerLink="/redefinir-senha">Redefina aqui</a>
             </p>
 
-            <button type="submit" class="btn-login" (click)="entrar()">Entrar</button>
+            <button type="submit" class="btn-login">Entrar</button>
 
 
             <p class="signup-link">
