@@ -57,6 +57,11 @@ export const routes: Routes = [
     data: { title: 'Reservas' }
   },
   {
+    path: 'controle-reservas',
+    loadComponent: () => import('./pages/controle-reservas/controle-reservas.component').then(m => m.ControleReservasComponent),
+    data: { title: 'Controle de Reservas' }
+  },  
+  {
     path: 'contato',
     loadComponent: () => import('./pages/contato/contato.component').then(m => m.ContatoComponent),
     data: { title: 'Contato' }
