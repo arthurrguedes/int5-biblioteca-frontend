@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Empréstimos — Visão Bibliotecário</h2>
+
+  <!-- barra de filtros / busca -->
+  <div class="filtros row">
+    <div class="col-auto">
+      <label>Status:
+        <select class="form-control" [(ngModel)]="filtroStatus">
+          <option value="Todos">Todos</option>
+          <option value="Vigente">Vigentes</option>
+          <option value="Devolvido">Devolvidos</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="col-auto">
+      <label>Período:
+        <select class="form-control" [(ngModel)]="filtroTempo">
+          <option value="6m">Últimos 6 meses</option>
+          <option value="1a">Último 1 ano</option>
+          <option value="2a">Últimos 2 anos</option>
+          <option value="3a">Últimos 3 anos</option>
+          <option value="all">Todo o período</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="col-auto">
+      <label>Campo:
+        <select class="form-control" [(ngModel)]="filtroCampo">
+          <option value="all">Todos</option>
+          <option value="titulo">Título</option>
+          <option value="usuario">Usuário</option>
+          <option value="autor">Autor</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="col">
+      <label>Buscar:
+        <input class="form-control" type="text" [(ngModel)]="filtroTexto" placeholder="digite e pressione enter ou espere...">
+      </label>
+    </div>
+  </div>
+
+  <!-- tabela -->
+  <div class="table-wrapper">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Usuário</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Ano</th>
+          <th>Início</th>
+          <th>Término</th>
+          <th>Devolução</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let e of emprestimosFiltrados; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ e.usuario }}</td>
+          <td>{{ e.titulo }}</td>
+          <td>{{ e.autor || '-' }}</td>
+          <td>{{ e.ano }}</td>
+          <td>{{ e.dataInicio | date:'dd/MM/yyyy' }}</td>
+          <td>{{ e.dataFim | date:'dd/MM/yyyy' }}</td>
+          <td>{{ e.dataDevolucao ? (e.dataDevolucao | date:'dd/MM/yyyy') : '-' }}</td>
+          <td>
+            <span [ngClass]="{'status-vigente': e.status === 'Vigente', 'status-devolvido': e.status === 'Devolvido'}">
+              {{ e.status }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="e.status === 'Vigente'" class="btn btn-renovar" (click)="registrarDevolucao(e)">
+              Registrar Devolução
+            </button>
+            <button class="btn btn-link" (click)="abrirControleReservas(e)">Reservas</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="emprestimosFiltrados.length === 0">
+          <td colspan="10" class="text-center">Nenhum empréstimo encontrado.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

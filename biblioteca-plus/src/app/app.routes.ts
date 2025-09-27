@@ -77,7 +77,7 @@ export const routes: Routes = [
     data: { title: 'Relatórios' }
   },
   {
-    path: 'relatorio-usuario',
+    path: 'relatorio-usuarios',
     loadComponent: () => import('./pages/relatorios/relatorio-usuarios/relatorio-usuarios.component').then(m => m.RelatorioUsuariosComponent),
     data: { title: 'Relatório de Usuário' }
   },
@@ -101,6 +101,11 @@ export const routes: Routes = [
     path: 'relatorio-multas',
     loadComponent: () => import('./pages/relatorios/relatorio-multas/relatorio-multas.component').then(m => m.RelatorioMultasComponent),
     data: { title: 'Relatório de Multas' }
+  },
+  {
+  path: 'emprestimos-bibliotecario',
+  loadComponent: () => import('./pages/emprestimos-bibliotecario/emprestimos-bibliotecario.component').then(m => m.EmprestimosBibliotecarioComponent),
+  data: { title: 'Empréstimos (Bibliotecário)' }
   },
 
   { path: '**', redirectTo: '' }
