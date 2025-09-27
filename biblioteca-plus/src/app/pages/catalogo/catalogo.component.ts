@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CatalogDataService, Categoria, Livro } from '../../shared/catalog/data.service';
 
-
 @Component({
   selector: 'app-catalogo-page',
   standalone: true,
@@ -14,8 +13,8 @@ import { CatalogDataService, Categoria, Livro } from '../../shared/catalog/data.
 })
 export class CatalogoPageComponent implements OnInit {
   categorias: Categoria[] = [
-    'Humor','Tecnologia','Romance','Autoajuda','Terror',
-    'Ficção Científica','Fantasia','Mistério','Aventura','Histórico'
+    'Humor', 'Tecnologia', 'Romance', 'Autoajuda', 'Terror',
+    'Ficção Científica', 'Fantasia', 'Mistério', 'Aventura', 'Histórico'
   ];
 
   q = '';
@@ -51,16 +50,24 @@ export class CatalogoPageComponent implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  verMais(cat: Categoria) { this.selecionarCategoria(cat); }
+  verMais(cat: Categoria) {
+    this.selecionarCategoria(cat);
+  }
 
   pesquisar() {
     this.q = (this.q || '').trim();
-    // se quiser que a busca sempre mostre "Todas":
-    // this.catSelecionada = 'Todas';
+    this.catSelecionada = 'Todas';
   }
 
   livrosDaCategoria(cat: Categoria): Livro[] {
     const termo = this.q.trim().toLowerCase();
+    // Se estiver buscando, mostrar livros de todas as categorias
+    if (this.catSelecionada === 'Todas' && termo) {
+      return this.livros
+        .filter(l => l.categoria === cat)
+        .filter(l => l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo));
+    }
+    // Comportamento padrão
     const filtrados = this.livros
       .filter(l => l.categoria === cat)
       .filter(l => !termo || l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo));
@@ -69,6 +76,16 @@ export class CatalogoPageComponent implements OnInit {
   }
 
   secoes(): Categoria[] {
+    const termo = this.q.trim().toLowerCase();
+    if (this.catSelecionada === 'Todas' && termo) {
+      // Só mostra as categorias que têm resultado para a busca
+      return this.categorias.filter(cat =>
+        this.livros.some(l =>
+          l.categoria === cat &&
+          (l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo))
+        )
+      );
+    }
     return this.catSelecionada === 'Todas' ? this.categorias : [this.catSelecionada as Categoria];
   }
 }
