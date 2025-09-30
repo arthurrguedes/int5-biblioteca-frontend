@@ -8,7 +8,7 @@ import { AuthService, UserRole } from '../auth/auth.service';
   standalone: true,
   imports: [RouterLink, CommonModule],
   template: `
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
         <img src="assets/logo.png" alt="" height="50" class="me-2" />
