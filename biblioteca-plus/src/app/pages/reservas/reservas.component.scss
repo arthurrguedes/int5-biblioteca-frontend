@@ -31,4 +31,22 @@
   .resumo { width:280px; padding:12px; border-radius:8px; border:1px solid #f0d9b6; background:#fff; }
 
   .link-emprestimos { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3b3b3b; }
+
+  .breadcrumb {
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: #666;
+
+  a {
+    text-decoration: none;
+    color: #4b2f6b;
+    &:hover { text-decoration: underline; }
+  }
+
+  span {
+    font-weight: bold;
+    color: #000;
+  }
+}
+
 }

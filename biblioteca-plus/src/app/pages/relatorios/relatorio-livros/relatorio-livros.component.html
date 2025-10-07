@@ -1,20 +1,27 @@
-<div class="relatorios-container">
-  <app-breadcrumb [titulo]="'Relatório de Livros'"></app-breadcrumb>
-  
-  <app-filtros
-    [meses]="meses"
-    [anos]="anos"
-    [(selectedMes)]="selectedMes"
-    [(selectedAno)]="selectedAno"
-    [isBuscarEnabled]="isBuscarEnabled"
-    (buscarClick)="buscarRelatorio()"
-  ></app-filtros>
+<div class="container">
+  <div class="relatorios-container">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [titulo]="'Relatório de Livros'"></app-breadcrumb>
 
-  <app-tipos-relatorio [titulo]="'Livros'" [relatorios]="['Livros']"></app-tipos-relatorio>
+    <!-- Filtros -->
+    <app-filtros
+      [meses]="meses"
+      [anos]="anos"
+      [(selectedMes)]="selectedMes"
+      [(selectedAno)]="selectedAno"
+      [isBuscarEnabled]="isBuscarEnabled"
+      (buscarClick)="buscarRelatorio()"
+    ></app-filtros>
 
-  <div class="conteudo-relatorio">
-    <button class="btn-laranja">Livros Disponíveis/Indisponíveis</button>
+    <!-- Tipos de Relatório -->
+    <app-tipos-relatorio [titulo]="'Livros'" [relatorios]="['Livros']"></app-tipos-relatorio>
+
+    <!-- Conteúdo do Relatório -->
+    <div class="conteudo-relatorio">
+      <button class="btn-laranja">Livros Disponíveis/Indisponíveis</button>
+    </div>
+
+    <!-- Ações do Relatório -->
+    <app-acoes-relatorio></app-acoes-relatorio>
   </div>
-
-  <app-acoes-relatorio></app-acoes-relatorio>
 </div>

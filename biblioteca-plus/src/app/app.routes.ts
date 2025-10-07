@@ -19,9 +19,19 @@ export const routes: Routes = [
     data: { title: 'Cadastro' }
   },
   {
-    path: 'sobre-nos',
-    loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
-    data: { title: 'Sobre Nós' }
+    path: 'perfil-usuario',
+    loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.component').then(m => m.PerfilUsuarioComponent),
+    data: { title: 'Perfil Usuario' }
+  },
+  {
+    path: 'perfil-bibliotecario',
+    loadComponent: () => import('./pages/perfil-bibliotecario/perfil-bibliotecario.component').then(m => m.PerfilBibliotecarioComponent),
+    data: { title: 'Perfil Bibliotecario' }
+  },
+  {
+  path: 'sobre-nos',
+  loadComponent: () => import('./pages/sobre-nos/sobre-nos.component').then(m => m.SobreNosComponent),
+  data: { title: 'Sobre Nós' }
   },
   {
     path: 'catalogo',
@@ -47,8 +57,13 @@ export const routes: Routes = [
     data: { title: 'Reservas' }
   },
   {
+    path: 'controle-reservas',
+    loadComponent: () => import('./pages/controle-reservas/controle-reservas.component').then(m => m.ControleReservasComponent),
+    data: { title: 'Controle de Reservas' }
+  },  
+  {
     path: 'contato',
-    loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
+    loadComponent: () => import('./pages/contato/contato.component').then(m => m.ContatoComponent),
     data: { title: 'Contato' }
   },
   {
@@ -62,9 +77,36 @@ export const routes: Routes = [
     data: { title: 'Relatórios' }
   },
   {
-    path: 'relatorio-usuario',
-    loadComponent: () => import('./pages/relatorios/relatorio-usuario/relatorio-usuario.component').then(m => m.RelatorioUsuarioComponent),
+    path: 'relatorio-usuarios',
+    loadComponent: () => import('./pages/relatorios/relatorio-usuarios/relatorio-usuarios.component').then(m => m.RelatorioUsuariosComponent),
     data: { title: 'Relatório de Usuário' }
   },
+  
+  {
+    path: 'relatorio-atrasos',
+    loadComponent: () => import('./pages/relatorios/relatorio-atrasos/relatorio-atrasos.component').then(m => m.RelatorioAtrasosComponent),
+    data: { title: 'Relatório de Atrasos' }
+  },
+  {
+    path: 'relatorio-estoque',
+    loadComponent: () => import('./pages/relatorios/relatorio-estoque/relatorio-estoque.component').then(m => m.RelatorioEstoqueComponent),
+    data: { title: 'Relatório de Estoque' }
+  },
+  {
+    path: 'relatorio-livros',
+    loadComponent: () => import('./pages/relatorios/relatorio-livros/relatorio-livros.component').then(m => m.RelatorioLivrosComponent),
+    data: { title: 'Relatório de Livros' }
+  },
+  {
+    path: 'relatorio-multas',
+    loadComponent: () => import('./pages/relatorios/relatorio-multas/relatorio-multas.component').then(m => m.RelatorioMultasComponent),
+    data: { title: 'Relatório de Multas' }
+  },
+  {
+  path: 'emprestimos-bibliotecario',
+  loadComponent: () => import('./pages/emprestimos-bibliotecario/emprestimos-bibliotecario.component').then(m => m.EmprestimosBibliotecarioComponent),
+  data: { title: 'Empréstimos (Bibliotecário)' }
+  },
+
   { path: '**', redirectTo: '' }
 ];

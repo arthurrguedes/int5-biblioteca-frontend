@@ -10,7 +10,9 @@
         <div class="card-body py-3">
           <div class="side-title mb-2">Categorias</div>
           <ul class="list-unstyled mb-0">
-            <li><button class="side-link" [class.active]="catSelecionada==='Todas'" (click)="selecionarCategoria('Todas')">Todas</button></li>
+            <li>
+              <button class="side-link" [class.active]="catSelecionada==='Todas'" (click)="selecionarCategoria('Todas')">Todas</button>
+            </li>
             <li *ngFor="let c of categorias">
               <button class="side-link" [class.active]="catSelecionada===c" (click)="selecionarCategoria(c)">{{ c }}</button>
             </li>
@@ -24,7 +26,11 @@
       <!-- Busca -->
       <div class="topbar d-flex justify-content-end mb-3">
         <div class="search input-group">
-          <input class="form-control" [(ngModel)]="q" (keyup.enter)="pesquisar()" placeholder="Digite o nome do livro ou autor" />
+          <input class="form-control"
+                 [(ngModel)]="q"
+                 (ngModelChange)="pesquisar()"
+                 (keyup.enter)="pesquisar()"
+                 placeholder="Digite o nome do livro ou autor" />
           <button type="button" class="input-group-text btn-search" (click)="pesquisar()" aria-label="Pesquisar">
             <i class="bi bi-search"></i>
           </button>

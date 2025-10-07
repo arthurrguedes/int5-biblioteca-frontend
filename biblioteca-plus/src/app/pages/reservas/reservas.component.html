@@ -1,9 +1,16 @@
 <div class="reservas-container container">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a routerLink="/">Início</a> /
+    <a routerLink="/usuario">Usuário</a> /
+    <span>Reserva</span>
+  </nav>
+
   <h2>Faça sua reserva</h2>
 
   <div class="search-row">
     <input type="text" placeholder="Digite o nome do livro ou autor" class="search-bar" />
-    <!-- Ícone rápido que leva para Emprestimos (no topo) -->
     <a routerLink="/emprestimos" class="emprestimos-icon" title="Ir para Meus Empréstimos">
       <i class="bi bi-journal-bookmark"></i>
     </a>
@@ -28,7 +35,6 @@
         </div>
       </div>
 
-      <!-- botão Meus Empréstimos (com ícone) -->
       <div class="mt-3">
         <a routerLink="/emprestimos" class="btn btn-dark">
           <i class="bi bi-journal-bookmark me-2"></i> Meus Empréstimos
@@ -36,16 +42,31 @@
       </div>
     </div>
 
+    <!-- Resumo da reserva -->
     <aside class="resumo ms-4">
       <h4>Resumo da Reserva</h4>
 
       <div *ngIf="livroReservado; else vazio">
-        <img src="assets/placeholder.png" alt="capa" class="mini-capa" />
-        <p><b>{{ livroReservado?.titulo }}</b></p>
-        <p>{{ livroReservado?.autor }}</p>
-        <a routerLink="/emprestimos" class="link-emprestimos" title="Ir para Meus Empréstimos">
-          <i class="bi bi-journal-bookmark"></i> Ver meus empréstimos
-        </a>
+        <img src="assets/placeholder.png" alt="capa" class="mini-capa mb-2" />
+        <p><b>{{ livroReservado.titulo }}</b></p>
+        <p>Autor: {{ livroReservado.autor }}</p>
+        <p>Edição: {{ livroReservado.edicao }}</p>
+        <p>Idioma: {{ livroReservado.idioma }}</p>
+        <p>Páginas: {{ livroReservado.paginas }}</p>
+        <p><strong>Retirada:</strong> 22 de agosto de 2025</p>
+        <p><strong>Devolução:</strong> 29 de agosto de 2025</p>
+        <p><strong>Fila de Espera:</strong> 0º na fila</p>
+
+        <div class="mt-3">
+          <strong>Regras para reserva</strong>
+          <ul>
+            <li>Prazo para retirada: 48 horas</li>
+            <li>Limite de reservas por usuário: xx</li>
+            <li>Cancelamento automático em caso de não retirada</li>
+          </ul>
+        </div>
+
+        <button class="btn btn-success w-100 mt-2" (click)="confirmarReserva()">Confirmar</button>
       </div>
 
       <ng-template #vazio>

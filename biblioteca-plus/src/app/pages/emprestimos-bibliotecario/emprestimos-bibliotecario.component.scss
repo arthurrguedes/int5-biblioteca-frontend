@@ -1,0 +1,66 @@
+.container {
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 14px;
+  }
+
+  .filtros {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    align-items: end;
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      min-width: 160px;
+    }
+  }
+
+  .table-wrapper {
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+    .table {
+      margin: 0;
+      th {
+        background: #3f3a65; /* cor semelhante ao header do seu layout */
+        color: #fff;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .status-vigente {
+    color: #1a7f1a;
+    font-weight: 700;
+  }
+
+  .status-devolvido {
+    color: #6c757d;
+    font-weight: 700;
+  }
+
+  .btn-renovar {
+    background: #b30000; /* botão parecido com o seu "Renovar" */
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn-link {
+    background: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+  }
+}

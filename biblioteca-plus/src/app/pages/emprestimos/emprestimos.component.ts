@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Emprestimo {
   id: number;
@@ -24,6 +25,8 @@ export class EmprestimosComponent implements OnInit {
   emprestimos: Emprestimo[] = [];
   filtroStatus: 'Vigente' | 'Devolvido' | 'Todos' = 'Vigente';
   filtroTempo: string = '6m';
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.emprestimos = [
@@ -82,11 +85,17 @@ export class EmprestimosComponent implements OnInit {
     return lista.filter(e => e.dataInicio >= limite);
   }
 
-  renovar(emprestimo: Emprestimo) {
-    alert(`Renovação solicitada para o livro: ${emprestimo.titulo}`);
+   renovar(emprestimo: Emprestimo) {
+    // redireciona para reservas
+    this.router.navigate(['/reservas'], {
+      queryParams: { id: emprestimo.id } // opcional, se quiser passar qual livro renovar
+    });
   }
 
   reservarNovamente(emprestimo: Emprestimo) {
-    alert(`Reserva solicitada para o livro: ${emprestimo.titulo}`);
+    // também pode ir pra reservas, se fizer sentido
+    this.router.navigate(['/reservas'], {
+      queryParams: { id: emprestimo.id }
+    });
   }
 }

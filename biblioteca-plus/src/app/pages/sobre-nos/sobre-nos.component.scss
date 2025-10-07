@@ -1,20 +1,17 @@
-/* Estilo para a página de relatórios */
-.relatorios-container {
-  padding: 40px 0; /* Ajuste do padding para dar espaçamento vertical */
+.sobre-nos-container {
+  padding: 40px 0;
   font-family: Arial, sans-serif;
   color: #333;
   line-height: 1.6;
 }
 
-/* Estilo para o título principal (h1) */
 .page-title {
   font-size: 32px;
   margin-bottom: 25px;
   color: #4a2c82;
-  text-align: left; /* Alinhamento à esquerda, como na página Sobre nós */
+  text-align: left; 
 }
 
-/* Estilo para as seções de conteúdo */
 .section-box {
   background-color: #fdf1e3;
   border-left: 8px solid #d97a0f;
@@ -44,17 +41,16 @@ ul li {
   margin-bottom: 6px;
 }
 
-/* Responsividade para telas pequenas (celulares) */
 @media (max-width: 768px) {
   .page-title {
-    font-size: 28px; /* Reduz o tamanho do título em telas pequenas */
+    font-size: 28px;
   }
 
   .section-box {
-    padding: 16px; /* Ajusta o padding das seções */
+    padding: 16px;
   }
 
   .section-box h2 {
-    font-size: 20px; /* Reduz o tamanho do título das seções */
+    font-size: 20px;
   }
 }

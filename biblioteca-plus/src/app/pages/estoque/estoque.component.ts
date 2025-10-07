@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CatalogDataService, Categoria, Livro } from '../../shared/catalog/data.service';
 
-
 interface StockItem {
   livro: Livro;
   estoque: number;
@@ -26,6 +25,7 @@ export class EstoquePageComponent implements OnInit {
 
   q = '';
   catSelecionada: Categoria | 'Todas' = 'Todas';
+  statusFiltro: 'Todos' | 'Disponível' | 'Último exemplar' | 'Indisponível' = 'Todos';
 
   itens: StockItem[] = [];
 
@@ -36,18 +36,12 @@ export class EstoquePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // cria estoque inicial (exemplo)
     const base = this.data.list();
-    this.itens = [
-      ...base.map((l): StockItem => ({
-        livro: l,
-        // só para demonstrar os 3 estados
-        estoque:
-          l.id % 5 === 0 ? 1 : (l.id % 3 === 0 ? 0 : 100),
-      }))
-    ];
+    this.itens = base.map((l): StockItem => ({
+      livro: l,
+      estoque: l.id % 5 === 0 ? 1 : (l.id % 3 === 0 ? 0 : 100),
+    }));
 
-    // aplica categoria da URL (?cat=)
     this.route.queryParamMap.subscribe(map => {
       const qp = (map.get('cat') ?? '').toLowerCase();
       const cat = this.categorias.find(c => c.toLowerCase() === qp);
@@ -55,7 +49,6 @@ export class EstoquePageComponent implements OnInit {
     });
   }
 
-  // ———— FILTROS ————
   selecionarCategoria(cat: Categoria | 'Todas') {
     this.catSelecionada = cat;
     this.router.navigate([], {
@@ -76,9 +69,11 @@ export class EstoquePageComponent implements OnInit {
 
   get itensFiltrados(): StockItem[] {
     let arr = this.itens;
+
     if (this.catSelecionada !== 'Todas') {
       arr = arr.filter(i => i.livro.categoria === this.catSelecionada);
     }
+
     const t = this.q.trim().toLowerCase();
     if (t) {
       arr = arr.filter(i =>
@@ -86,10 +81,14 @@ export class EstoquePageComponent implements OnInit {
         i.livro.autor.toLowerCase().includes(t)
       );
     }
+
+    if (this.statusFiltro !== 'Todos') {
+      arr = arr.filter(i => this.statusTexto(i) === this.statusFiltro);
+    }
+
     return arr;
   }
 
-  // ———— QUANTIDADE / STATUS ————
   inc(item: StockItem) { item.estoque = Math.max(0, (item.estoque ?? 0) + 1); }
   dec(item: StockItem) { item.estoque = Math.max(0, (item.estoque ?? 0) - 1); }
   blurQuantidade(item: StockItem) {

@@ -1,1 +1,27 @@
-<p>relatorio-estoque works!</p>
+<div class="container">
+  <div class="relatorios-container">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [titulo]="'Relatório de Estoque'"></app-breadcrumb>
+
+    <!-- Filtros -->
+    <app-filtros
+      [meses]="meses"
+      [anos]="anos"
+      [(selectedMes)]="selectedMes"
+      [(selectedAno)]="selectedAno"
+      [isBuscarEnabled]="isBuscarEnabled"
+      (buscarClick)="buscarRelatorio()"
+    ></app-filtros>
+
+    <!-- Tipos de Relatório -->
+    <app-tipos-relatorio [titulo]="'Estoque'" [relatorios]="['Estoque']"></app-tipos-relatorio>
+
+    <!-- Conteúdo do Relatório -->
+    <div class="conteudo-relatorio">
+      <button class="btn-laranja">Livros em Estoque</button>
+    </div>
+
+    <!-- Ações do Relatório -->
+    <app-acoes-relatorio></app-acoes-relatorio>
+  </div>
+</div>
