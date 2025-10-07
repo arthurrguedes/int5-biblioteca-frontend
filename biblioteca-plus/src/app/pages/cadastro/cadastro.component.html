@@ -2,22 +2,40 @@
   <div class="login-box">
     <h2>É novo? Cadastre-se abaixo</h2>
 
-    <form class="login-form">
+    <form class="login-form" [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
       <div class="input-group">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="Digite seu usuário" required>
+        <input type="text" placeholder="Digite seu usuário" formControlName="usuario">
+        <div *ngIf="submitted && f['usuario'].errors" class="text-danger" style="text-align: left; font-size: 0.8rem; margin-top: 5px;">
+          <div *ngIf="f['usuario'].errors['required']">Usuário é obrigatório.</div>
+          <div *ngIf="f['usuario'].errors['invalidUsuario']">Usuário deve conter letras e não pode ser apenas números ou caracteres especiais.</div>
+        </div>
       </div>
+
       <div class="input-group">
         <i class="bi bi-envelope"></i>
-        <input type="email" placeholder="Digite seu email" required>
+        <input type="email" placeholder="Digite seu email" formControlName="email">
+        <div *ngIf="submitted && f['email'].errors" class="text-danger" style="text-align: left; font-size: 0.8rem; margin-top: 5px;">
+          <div *ngIf="f['email'].errors['required']">Email é obrigatório.</div>
+          <div *ngIf="f['email'].errors['email']">Formato de email inválido.</div>
+        </div>
       </div>
+
       <div class="input-group">
         <i class="bi bi-lock"></i>
-        <input type="password" placeholder="Digite sua senha" required>
+        <input type="password" placeholder="Digite sua senha" formControlName="senha">
+        <div *ngIf="submitted && f['senha'].errors" class="text-danger" style="text-align: left; font-size: 0.8rem; margin-top: 5px;">
+          <div *ngIf="f['senha'].errors['required']">Senha é obrigatória.</div>
+          <div *ngIf="f['senha'].errors['minlength']">A senha deve ter no mínimo 6 caracteres.</div>
+        </div>
       </div>
+
       <div class="input-group">
         <i class="bi bi-calendar-event"></i>
-        <input type="text" placeholder="Data de nascimento" onfocus="(this.type='date')" onblur="(this.type='text')" required>
+        <input type="text" placeholder="Data de nascimento" onfocus="(this.type='date')" onblur="(this.type='text')" formControlName="dataNascimento">
+        <div *ngIf="submitted && f['dataNascimento'].errors" class="text-danger" style="text-align: left; font-size: 0.8rem; margin-top: 5px;">
+          <div *ngIf="f['dataNascimento'].errors['required']">Data de nascimento é obrigatória.</div>
+        </div>
       </div>
 
       <button type="submit" class="btn-login">Cadastrar-se</button>

@@ -8,14 +8,15 @@
             <button class="tab-btn active">Bibliotecário</button>
         </div>
 
-        <form class="login-form">
+        <form class="login-form" #adminForm="ngForm" (ngSubmit)="entrarAdmin()">
             <div class="input-group">
                 <i class="bi bi-person"></i>
-                <input type="email" placeholder="Digite sua identificação" required>
+                <input type="email" placeholder="Digite sua identificação" required [(ngModel)]="identificacao"
+                    name="identificacao">
             </div>
             <div class="input-group">
                 <i class="bi bi-lock"></i>
-                <input type="password" placeholder="Digite sua senha" required>
+                <input type="password" placeholder="Digite sua senha" required [(ngModel)]="senha" name="senha">
             </div>
 
             <p class="forgot-password">
@@ -23,7 +24,6 @@
             </p>
 
             <button type="submit" class="btn-login">Entrar</button>
-
         </form>
     </div>
 </main>

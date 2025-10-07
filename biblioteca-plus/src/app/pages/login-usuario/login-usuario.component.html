@@ -1,4 +1,8 @@
 <main class="login-container">
+
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Hanuman&display=swap" rel="stylesheet">
+    </head>
     <div class="login-box">
         <h2>Bem vindos a Biblioteca+!</h2>
         <p class="login-prompt">FAÇA SEU LOGIN</p>
@@ -8,14 +12,14 @@
             <a routerLink="/login-admin" class="tab-btn">Bibliotecário</a>
         </div>
 
-        <form class="login-form">
+        <form class="login-form" #loginForm="ngForm" (ngSubmit)="entrar()">
             <div class="input-group">
                 <i class="bi bi-person"></i>
-                <input type="email" placeholder="Digite seu email" required>
+                <input type="email" placeholder="Digite seu email" required [(ngModel)]="email" name="email">
             </div>
             <div class="input-group">
                 <i class="bi bi-lock"></i>
-                <input type="password" placeholder="Digite sua senha" required>
+                <input type="password" placeholder="Digite sua senha" required [(ngModel)]="senha" name="senha">
             </div>
 
             <p class="forgot-password">
@@ -23,6 +27,7 @@
             </p>
 
             <button type="submit" class="btn-login">Entrar</button>
+
 
             <p class="signup-link">
                 Não possui Login? <a routerLink="/cadastro">Cadastre-se</a>
