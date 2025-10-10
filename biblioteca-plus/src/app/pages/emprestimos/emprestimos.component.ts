@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EmprestimoService } from '../../services/emprestimo.service';
 
-interface Emprestimo {
+export interface Emprestimo {
   id: number;
   titulo: string;
   ano: number;
-  dataInicio: Date;
-  dataFim: Date;
+  dataInicio: Date; // No back-end é dataEmprestimo
+  dataFim: Date; // No back-end é dataPrevista
   dataDevolucao?: Date;
   status: 'Vigente' | 'Devolvido';
 }
@@ -26,51 +27,44 @@ export class EmprestimosComponent implements OnInit {
   filtroStatus: 'Vigente' | 'Devolvido' | 'Todos' = 'Vigente';
   filtroTempo: string = '6m';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private emprestimoService: EmprestimoService) {
+    console.log('Componente Emprestimos INICIOU (Constructor)');
+  }
 
   ngOnInit(): void {
-    this.emprestimos = [
-      {
-        id: 1,
-        titulo: "Título do Livro A",
-        ano: 2022,
-        dataInicio: new Date("2025-08-20"),
-        dataFim: new Date("2025-08-27"),
-        status: 'Vigente'
-      },
-      {
-        id: 2,
-        titulo: "Título do Livro B",
-        ano: 2021,
-        dataInicio: new Date("2025-08-18"),
-        dataFim: new Date("2025-08-25"),
-        status: 'Vigente'
-      },
-      {
-        id: 3,
-        titulo: "Título do Livro C",
-        ano: 2020,
-        dataInicio: new Date("2025-08-10"),
-        dataFim: new Date("2025-08-17"),
-        dataDevolucao: new Date("2025-08-15"),
-        status: 'Devolvido'
-      },
-      {
-        id: 4,
-        titulo: "Título do Livro D",
-        ano: 2022,
-        dataInicio: new Date("2025-08-15"),
-        dataFim: new Date("2025-08-22"),
-        status: 'Vigente'
-      }
-    ];
+    console.log('ngOnInit foi chamado');
+    this.carregarEmprestimos();
+  }
+
+  carregarEmprestimos(): void {
+    console.log('DENTRO de carregarEmprestimos, antes de chamar o serviço');
+    const idUsuarioLogado = 1; // pegar o ID do usuário logado
+    console.log('ID do Usuário a ser buscado:', idUsuarioLogado);
+
+    this.emprestimoService.getEmprestimosPorUsuario(idUsuarioLogado)
+      .subscribe({
+        next: (dados) => {
+          console.log('Dados recebidos da API:', dados);
+          // map é necessário por causa da diferença de modelos
+          this.emprestimos = dados.map((e: any) => ({
+            ...e,
+            dataInicio: new Date(e.dataInicio + 'T00:00:00'),
+            dataFim: new Date(e.dataFim + 'T00:00:00'),
+            dataDevolucao: e.dataDevolucao ? new Date(e.dataDevolucao + 'T00:00:00') : null
+          }));
+          console.log('Empréstimos carregados e convertidos:', this.emprestimos);
+        },
+        error: (err) => {
+          console.error('ERRO ao buscar empréstimos:', err);
+        }
+      });
   }
 
   get emprestimosFiltrados(): Emprestimo[] {
     let lista = this.emprestimos;
 
     if (this.filtroStatus !== 'Todos') {
-      lista = lista.filter(e => e.status === this.filtroStatus);
+      lista = lista.filter(e => e.status.toLowerCase() === this.filtroStatus.toLowerCase());
     }
 
     const hoje = new Date();
