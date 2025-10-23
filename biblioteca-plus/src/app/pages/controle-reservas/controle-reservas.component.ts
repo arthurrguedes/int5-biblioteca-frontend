@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Reserva {
   usuario: string;
@@ -12,6 +13,8 @@ interface Reserva {
 
 @Component({
   selector: 'app-controle-reservas',
+  imports: [CommonModule],
+  standalone: true,
   templateUrl: './controle-reservas.component.html',
   styleUrls: ['./controle-reservas.component.css'],
 })

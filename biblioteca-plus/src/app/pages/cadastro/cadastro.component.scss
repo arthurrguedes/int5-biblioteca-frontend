@@ -1,6 +1,6 @@
 // Importa todos os estilos da página de login.
 // Assim, qualquer mudança lá, reflete aqui também!
-@import '../login-usuario/login-usuario.component.scss';
+@use '../login-usuario/login-usuario.component.scss';
 
 // Ajustes específicos para a página de cadastro, se necessário.
 .login-box h2 {

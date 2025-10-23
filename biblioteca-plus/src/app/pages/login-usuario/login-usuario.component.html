@@ -1,38 +1,38 @@
 <main class="login-container">
+ <head>
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman&display=swap" rel="stylesheet">
+ </head>
+  <div class="login-box">
+    <h2>Bem vindos a Biblioteca+!</h2>
+    <p class="login-prompt">FAÇA SEU LOGIN</p>
 
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Hanuman&display=swap" rel="stylesheet">
-    </head>
-    <div class="login-box">
-        <h2>Bem vindos a Biblioteca+!</h2>
-        <p class="login-prompt">FAÇA SEU LOGIN</p>
-
-        <div class="user-type-selector">
-            <button class="tab-btn active">Usuário</button>
-            <a routerLink="/login-admin" class="tab-btn">Bibliotecário</a>
-        </div>
-
-        <form class="login-form" #loginForm="ngForm" (ngSubmit)="entrar()">
-            <div class="input-group">
-                <i class="bi bi-person"></i>
-                <input type="email" placeholder="Digite seu email" required [(ngModel)]="email" name="email">
-            </div>
-            <div class="input-group">
-                <i class="bi bi-lock"></i>
-                <input type="password" placeholder="Digite sua senha" required [(ngModel)]="senha" name="senha">
-            </div>
-
-            <p class="forgot-password">
-                Esqueceu sua senha?<a routerLink="/redefinir-senha">Redefina aqui</a>
-            </p>
-
-            <button type="submit" class="btn-login">Entrar</button>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
 
-            <p class="signup-link">
-                Não possui Login? <a routerLink="/cadastro">Cadastre-se</a>
-            </p>
-        </form>
+    <div class="user-type-selector">
+      <button class="tab-btn active">Usuário</button>
+      <a routerLink="/login-admin" class="tab-btn">Bibliotecário</a>
     </div>
 
+    <form class="login-form" #loginForm="ngForm" (ngSubmit)="entrar()">
+      <div class="input-group">
+        <i class="bi bi-person"></i>
+        <input type="email" placeholder="Digite seu email" required [(ngModel)]="email" name="email">
+      </div>
+      <div class="input-group">
+        <i class="bi bi-lock"></i>
+        <input type="password" placeholder="Digite sua senha" required [(ngModel)]="senha" name="senha">
+      </div>
+
+      <p class="forgot-password">
+        Esqueceu sua senha?<a routerLink="/redefinir-senha">Redefina aqui</a>
+      </p>
+
+      <button type="submit" class="btn-login" [disabled]="!loginForm.valid">Entrar</button>
+
+      <p class="signup-link">
+        Não possui Login? <a routerLink="/cadastro">Cadastre-se</a>
+      </p>
+    </form>
+  </div>
 </main>

@@ -1,29 +1,43 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Adicionado
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../shared/auth/auth.service';
+import { AuthService, LoginAdmin } from '../../shared/auth/auth.service'; // 1. IMPORTE O SERVIÇO e Interface
 
 @Component({
   selector: 'app-login-admin',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule], // Adicionado FormsModule
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login-admin.component.html',
-  styleUrls: ['../login-usuario/login-usuario.component.scss']
+  styleUrls: ['../login-usuario/login-usuario.component.scss'] // Reutiliza o estilo
 })
 export class LoginAdminComponent {
-  identificacao = '';
-  senha = '';
+  identificacao = ''; // No DTO é bibliotecario_numero
+  senha = ''; // Backend não usa senha por enquanto, mas mantemos
+   errorMessage: string | null = null; // Para exibir erros
 
-  constructor(private auth: AuthService, private router: Router) {}
+  // 2. INJETE O SERVIÇO
+  constructor(private authService: AuthService, private router: Router) {}
 
   entrarAdmin() {
-    // Lógica de validação para o admin
-    if (this.identificacao === 'admin@login.com' && this.senha === 'admin123') {
-      this.auth.loginAsAdmin();
-      this.router.navigate(['/']); // Navega para a home ou dashboard
-    } else {
-      alert('Credenciais de administrador inválidas');
-    }
+     this.errorMessage = null; // Limpa erro anterior
+    // O backend espera 'bibliotecario_numero'
+    const credenciais: LoginAdmin = {
+      bibliotecario_numero: this.identificacao
+      // senha: this.senha // Descomente se o backend for modificado
+    };
+
+    // 3. CHAME O MÉTODO DO SERVIÇO
+    this.authService.loginAdmin(credenciais)
+      .subscribe({
+        next: (response) => {
+          console.log(response.message);
+          this.router.navigate(['/']); // Redireciona para home ou dashboard admin
+        },
+        error: (err) => {
+          this.errorMessage = err.message || 'Erro ao fazer login de administrador.'; // Exibe o erro da API
+          console.error('Erro no login de admin:', err);
+        }
+      });
   }
 }

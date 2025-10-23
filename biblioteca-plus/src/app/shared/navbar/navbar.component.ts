@@ -65,17 +65,6 @@ export class NavbarComponent {
     this.auth.role$.subscribe(r => this.role = r);
   }
 
-  // A lógica de login real (clicar em 'Entrar' nas páginas de login)
-  // deve chamar estes métodos do seu AuthService.
-  // Os botões do navbar agora apenas redirecionam.
-  loginAsUser() {
-    this.auth.loginAsUser();
-  }
-
-  loginAsAdmin() {
-    this.auth.loginAsAdmin();
-  }
-
   logout() {
     this.auth.logout();
     this.router.navigate(['/']); // Redireciona para a home após o logout
