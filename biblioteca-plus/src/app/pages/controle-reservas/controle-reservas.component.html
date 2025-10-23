@@ -37,10 +37,10 @@
 <div class="modal" *ngIf="reservaSelecionada" (click)="reservaSelecionada = null">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>Aprovação da Reserva</h3>
-    <p><strong>Usuário:</strong> {{ reservaSelecionada?.usuario }}</p>
-    <p><strong>Livro:</strong> {{ reservaSelecionada?.livro }}</p>
-    <p><strong>Quantidade:</strong> {{ reservaSelecionada?.quantidade }}</p>
-    <p><strong>Classificação:</strong> {{ reservaSelecionada?.classificacao }}º na fila</p>
+    <p><strong>Usuário:</strong> {{ reservaSelecionada.usuario }}</p>
+    <p><strong>Livro:</strong> {{ reservaSelecionada.livro }}</p>
+    <p><strong>Quantidade:</strong> {{ reservaSelecionada.quantidade }}</p>
+    <p><strong>Classificação:</strong> {{ reservaSelecionada.classificacao }}º na fila</p>
 
     <div class="actions">
       <button class="btn-autorizar" (click)="autorizar()">Autorizar</button>

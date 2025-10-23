@@ -9,7 +9,8 @@
 
   <h2>Faça sua reserva</h2>
 
-  <div class="search-row">
+  <!-- Barra de busca (apenas visual) -->
+  <div class="search-row mb-3">
     <input type="text" placeholder="Digite o nome do livro ou autor" class="search-bar" />
     <a routerLink="/emprestimos" class="emprestimos-icon" title="Ir para Meus Empréstimos">
       <i class="bi bi-journal-bookmark"></i>
@@ -17,10 +18,12 @@
   </div>
 
   <div class="reserva-content d-flex">
+
+    <!-- Lista de livros -->
     <div class="lista-livros flex-grow-1">
-      <div *ngFor="let livro of livros" class="livro-card">
-        <div class="info">
-          <img src="assets/placeholder.png" alt="capa" class="capa" />
+      <div *ngFor="let livro of livros" class="livro-card mb-3">
+        <div class="info d-flex">
+          <img src="assets/placeholder.png" alt="capa" class="capa me-3" />
           <div>
             <h3>{{ livro.titulo }}</h3>
             <p class="autor">{{ livro.autor }}</p>
@@ -28,10 +31,10 @@
           </div>
         </div>
 
-        <div class="acoes">
-          <button *ngIf="livro.status === 'disponivel'" (click)="reservar(livro)" class="btn btn-success">Reservar</button>
-          <button *ngIf="livro.status === 'fila'" (click)="entrarNaFila(livro)" class="btn btn-warning">Entrar na fila</button>
-          <button *ngIf="livro.status === 'meu'" (click)="cancelar(livro)" class="btn btn-danger">Cancelar</button>
+        <div class="acoes mt-2 d-flex gap-2">
+          <button *ngIf="livro.status === 'DISPONIVEL'" (click)="reservar(livro)" class="btn btn-success">Reservar</button>
+          <button *ngIf="livro.status === 'INDISPONIVEL'" (click)="entrarNaFila(livro)" class="btn btn-warning">Entrar na fila</button>
+          <button *ngIf="livroReservado === livro" (click)="cancelar()" class="btn btn-danger">Cancelar</button>
         </div>
       </div>
 
@@ -43,7 +46,7 @@
     </div>
 
     <!-- Resumo da reserva -->
-    <aside class="resumo ms-4">
+    <aside class="resumo ms-4 p-3 border rounded">
       <h4>Resumo da Reserva</h4>
 
       <div *ngIf="livroReservado; else vazio">
@@ -73,9 +76,17 @@
         <p>Nenhum livro reservado.</p>
       </ng-template>
     </aside>
+
   </div>
 
+  <!-- Mensagem de sucesso -->
   <div *ngIf="reservaEfetuada" class="alert alert-success mt-4">
     <i class="bi bi-check-circle-fill me-2"></i> Reserva efetuada com sucesso!
   </div>
+
+  <!-- Mensagem de erro -->
+  <div *ngIf="erro" class="alert alert-danger mt-4">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ erro }}
+  </div>
+
 </div>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 👈 importa isso
+import { FormsModule } from '@angular/forms';   // 👈 e isso, se usar [(ngModel)]
 
 interface Reserva {
   usuario: string;
@@ -12,6 +14,8 @@ interface Reserva {
 
 @Component({
   selector: 'app-controle-reservas',
+  standalone: true, // 👈 adicione esta linha
+  imports: [CommonModule, FormsModule], // 👈 adicione esta também
   templateUrl: './controle-reservas.component.html',
   styleUrls: ['./controle-reservas.component.css'],
 })
