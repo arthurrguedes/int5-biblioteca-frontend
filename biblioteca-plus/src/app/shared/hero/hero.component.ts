@@ -3,6 +3,18 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-hero',
   standalone: true,
+
+  // Utilizando a imagem como hero
+  // styles: [`
+  //   .hero {
+  //     background-image: url('/assets/hero1.PNG');
+  //     background-size: cover;
+  //     background-position: center;
+  //     background-repeat: no-repeat;
+  //     padding: 120px 0;
+  //     color: white;
+  //   }
+  // `],
   template: `
   <section class="hero">
     <div class="container">

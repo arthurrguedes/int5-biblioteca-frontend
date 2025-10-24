@@ -87,38 +87,3 @@
   margin: 0;
   font-size: 15px;
 }
-
-.btn-editar {
-  margin-top: 20px;
-  background-color: #5c3b85;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-editar:hover {
-  background-color: #472c6a;
-}
-
-@media (max-width: 600px) {
-  .perfil-container {
-    padding: 0 12px;
-  }
-
-  .perfil-box {
-    padding: 16px;
-  }
-
-  .avatar-wrapper {
-    width: 100px;
-    height: 100px;
-  }
-
-  .avatar-icone {
-    font-size: 48px;
-  }
-}

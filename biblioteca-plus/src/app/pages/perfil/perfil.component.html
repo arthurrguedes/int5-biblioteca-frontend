@@ -1,0 +1,77 @@
+
+<div class="perfil-container">
+  <h1 class="titulo">Meu Perfil</h1>
+
+  <div class="perfil-box">
+    <div class="avatar-container">
+      <div class="avatar-wrapper">
+        <img 
+          *ngIf="imagemPerfil; else iconePadrao" 
+          [src]="imagemPerfil" 
+          alt="Foto de perfil" 
+          class="avatar" 
+        />
+        <ng-template #iconePadrao>
+          <div class="avatar avatar-icone">
+            <i class="bi bi-person-circle"></i>
+          </div>
+        </ng-template>
+
+        <label class="edit-icon" title="Alterar imagem">
+          <i class="bi bi-camera-fill"></i>
+          <input type="file" (change)="trocarImagem($event)" accept="image/*" />
+        </label>
+      </div>
+    </div>
+
+    <div class="campo">
+      <label>Nome completo:</label>
+      <p *ngIf="!editando">{{ nome }}</p>
+      <input *ngIf="editando" [(ngModel)]="tempNome" />
+    </div>
+
+    <div class="campo">
+      <label>Email:</label>
+      <p *ngIf="!editando">{{ email }}</p>
+      <input *ngIf="editando" [(ngModel)]="tempEmail" />
+    </div>
+
+    <div *ngIf="tipoPerfil === 'usuario'">
+      <div class="campo">
+        <label>Data de nascimento:</label>
+        <p *ngIf="!editando">{{ nascimento }}</p>
+        <input *ngIf="editando" [(ngModel)]="tempNascimento" />
+      </div>
+
+      <div class="campo">
+        <label>Telefone:</label>
+        <p *ngIf="!editando">{{ telefone }}</p>
+        <input *ngIf="editando" [(ngModel)]="tempTelefone" />
+      </div>
+
+      <div class="campo">
+        <label>Endereço:</label>
+        <p *ngIf="!editando">{{ endereco }}</p>
+        <input *ngIf="editando" [(ngModel)]="tempEndereco" />
+      </div>
+    </div>
+
+    <div *ngIf="tipoPerfil === 'bibliotecario'">
+      <div class="campo">
+        <label>Matrícula:</label>
+        <p *ngIf="!editando">{{ matricula }}</p>
+        <input *ngIf="editando" [(ngModel)]="tempMatricula" />
+      </div>
+    </div>
+
+    <div class="botoes">
+      <button *ngIf="!editando" class="btn-editar" (click)="editarPerfil()">Editar Perfil</button>
+
+      <div *ngIf="editando">
+        <button class="btn-atualizar" [disabled]="!camposPreenchidos()" (click)="atualizarPerfil()">Alterar</button>
+        <button class="btn-limpar" (click)="limparCampos()">Limpar</button>
+        <button class="btn-cancelar" (click)="cancelarEdicao()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

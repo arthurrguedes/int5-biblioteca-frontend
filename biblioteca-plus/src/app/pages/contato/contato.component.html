@@ -1,74 +1,67 @@
-
 <div class="container">
-    <h1 class="page-title">Contatos</h1>
-  
-    <!-- Bloco: Endereço -->
-    <app-content-box titulo="Endereço">
-      R. Santa Luzia, 735 - 2º andar - Centro, Rio de Janeiro - RJ<br />
-      CEP: 20030-041
-    </app-content-box>
-  
-    <!-- Bloco: Telefone -->
-    <app-content-box titulo="Telefone">
-      Tel: (21) 2018-9029<br />
-      WhatsApp: (21) 92018-9029
-    </app-content-box>
-  
-    <!-- Bloco: Email -->
-    <app-content-box titulo="Email">
-      contato&#64;bibliotecamais.com.br<br />
-      suporte&#64;bibliotecamais.com.br
-    </app-content-box>
-  
-    <!-- Bloco: Horário -->
-    <app-content-box titulo="Horário">
-      Segunda a Sexta: 08h às 17h
-    </app-content-box>
-  
-    <!-- Bloco: Redes Sociais -->
-    <app-content-box titulo="Redes Sociais">
-      <a href="#" aria-label="Instagram">
-        <i class="fab fa-instagram"></i> Instagram
-      </a> |
-      <a href="#" aria-label="Facebook">
-        <i class="fab fa-facebook"></i> Facebook
-      </a> |
-      <a href="#" aria-label="Twitter">
-        <i class="fab fa-twitter"></i> Twitter
-      </a>
-    </app-content-box>
-  
-    <!-- Bloco Enviar Mensagem -->
-    <app-content-box titulo="Mensagem">
-      <form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="formulario">
-        <label>
-          Nome:
-          <input type="text" name="nome" required ngModel />
-        </label>
-  
-        <label>
-          Email:
-          <input type="email" name="email" required ngModel />
-        </label>
-  
-        <label>
-          Assunto:
-          <input type="text" name="assunto" required ngModel />
-        </label>
-  
-        <label>
-          Mensagem:
-          <textarea name="mensagem" rows="4" required ngModel></textarea>
-        </label>
-  
-        <button
-          type="submit"
-          [disabled]="!contactForm.valid"
-          class="btn-enviar"
-        >
+  <h1 class="page-title">Contatos</h1>
+
+  <app-content-box titulo="Endereço">
+    R. Santa Luzia, 735 - 2º andar - Centro, Rio de Janeiro - RJ<br />
+    CEP: 20030-041
+  </app-content-box>
+
+  <app-content-box titulo="Telefone">
+    Tel: (21) 2018-9029<br />
+    WhatsApp: (21) 92018-9029
+  </app-content-box>
+
+  <app-content-box titulo="Email">
+    contato&#64;bibliotecamais.com.br<br />
+    suporte&#64;bibliotecamais.com.br
+  </app-content-box>
+
+  <app-content-box titulo="Horário">
+    Segunda a Sexta: 08h às 17h
+  </app-content-box>
+
+  <app-content-box titulo="Redes Sociais">
+    <a href="#" aria-label="Instagram">
+      <i class="fab fa-instagram"></i> Instagram
+    </a> |
+    <a href="#" aria-label="Facebook">
+      <i class="fab fa-facebook"></i> Facebook
+    </a> |
+    <a href="#" aria-label="Twitter">
+      <i class="fab fa-twitter"></i> Twitter
+    </a>
+  </app-content-box>
+
+  <app-content-box titulo="Mensagem">
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="formulario">
+      <label>
+        Nome:
+        <input type="text" name="nome" required [(ngModel)]="formData.nome" />
+      </label>
+
+      <label>
+        Email:
+        <input type="email" name="email" required [(ngModel)]="formData.email" />
+      </label>
+
+      <label>
+        Assunto:
+        <input type="text" name="assunto" required [(ngModel)]="formData.assunto" />
+      </label>
+
+      <label>
+        Mensagem:
+        <textarea name="mensagem" rows="4" required [(ngModel)]="formData.mensagem"></textarea>
+      </label>
+
+      <div class="botoes">
+        <button type="submit" [disabled]="!contactForm.valid" class="btn-enviar">
           Enviar
         </button>
-      </form>
-    </app-content-box>
-  </div>
-  
+        <button type="button" (click)="onClear()" class="btn-limpar">
+          Limpar
+        </button>
+      </div>
+    </form>
+  </app-content-box>
+</div>

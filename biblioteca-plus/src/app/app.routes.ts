@@ -19,6 +19,11 @@ export const routes: Routes = [
     data: { title: 'Cadastro' }
   },
   {
+    path: 'perfil',
+    loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent),
+    data: { title: 'Perfil' }
+  },
+  {
     path: 'perfil-usuario',
     loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.component').then(m => m.PerfilUsuarioComponent),
     data: { title: 'Perfil Usuario' }

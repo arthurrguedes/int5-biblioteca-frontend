@@ -6,6 +6,7 @@ export interface Book {
   id: number;
   title: string;
   coverUrl: string;
+  author: string;
 }
 
 @Component({
@@ -32,6 +33,7 @@ export interface Book {
         <article class="book-card" *ngFor="let b of books">
           <img [src]="b.coverUrl" [alt]="b.title" loading="lazy" />
           <div class="title">{{ b.title }}</div>
+          <div class="author">{{ b.author }}</div>
         </article>
       </div>
 

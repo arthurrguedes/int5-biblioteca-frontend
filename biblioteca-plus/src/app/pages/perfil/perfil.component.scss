@@ -1,0 +1,147 @@
+.perfil-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.titulo {
+  font-size: 32px;
+  text-align: center;
+  color: #4a2c82;
+  margin-bottom: 30px;
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #d97a0f;
+  object-fit: cover;
+  background-color: #fff;
+}
+
+.avatar-icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  font-size: 60px;
+  color: #d97a0f;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #5c3b85;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon i {
+  color: white;
+  font-size: 14px;
+}
+
+.edit-icon input {
+  display: none;
+}
+
+.perfil-box {
+  border: 2px solid #d97a0f;
+  border-radius: 12px;
+  padding: 24px;
+  background-color: #fff6ec;
+}
+
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  font-weight: bold;
+  color: #d97a0f;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.campo p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.campo input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.botoes {
+  margin-top: 20px;
+  text-align: center;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-editar {
+  background-color: #5c3b85;
+  color: #fff;
+}
+
+.btn-atualizar {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-limpar {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-editar:hover {
+  background-color: #472c6a;
+}
+
+.btn-atualizar:hover {
+  background-color: #1e7e34;
+}
+
+.btn-limpar:hover {
+  background-color: #a71d2a;
+}
+
+.btn-cancelar:hover {
+  background-color: #565e64;
+}
