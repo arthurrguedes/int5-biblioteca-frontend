@@ -29,6 +29,11 @@ export const routes: Routes = [
     data: { title: 'Estoque' }
   },
   {
+    path: 'cadastrar-livro',
+    loadComponent: () => import('./pages/cadastrar-livro/cadastrar-livro.component')
+    .then(m => m.CadastrarLivroComponent)
+  },
+  {
     path: 'reservas',
     loadComponent: () => import('./pages/static/static-page.component').then(m => m.StaticPageComponent),
     data: { title: 'Reservas' }

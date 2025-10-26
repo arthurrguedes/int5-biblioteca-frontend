@@ -1,0 +1,58 @@
+.cadastro-container {
+  .page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #3c2b84;
+  }
+
+  .form-box {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,.08);
+
+    label {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .form-control {
+      margin-bottom: .5rem;
+      border-radius: 8px;
+    }
+
+    .btn-laranja {
+      background: #f08a24;
+      color: #fff;
+      padding: .75rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-laranja:hover {
+      background: #d3761d;
+    }
+  }
+}
+
+.lista-generos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: .4rem .75rem;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: .6rem;
+  margin-bottom: .5rem;
+}
+
+.genero-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .95rem;
+}

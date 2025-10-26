@@ -129,3 +129,21 @@
   text-align: center; color: #999; padding: 1.2rem 0;
   border: 2px dashed #e8e8e8; border-radius: .75rem; background: #fff;
 }
+
+/* Botão laranja padrão */
+.btn-laranja {
+  background: #e8832f;
+  color: #fff;
+  border: none;
+  padding: .65rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .15s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-laranja:hover { background: #cc6f23; }
+

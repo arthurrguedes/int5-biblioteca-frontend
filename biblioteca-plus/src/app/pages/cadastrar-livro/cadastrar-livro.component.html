@@ -1,0 +1,45 @@
+<div class="cadastro-container container mt-4">
+
+  <h2 class="page-title">Cadastrar Livro</h2>
+
+  <form (ngSubmit)="salvar()" class="form-box">
+
+    <label>Título *</label>
+    <input type="text" class="form-control" [(ngModel)]="livro.titulo" name="titulo" required />
+
+    <label>Ano</label>
+    <input type="number" class="form-control" [(ngModel)]="livro.ano" name="ano" />
+
+    <label>Edição</label>
+    <input type="number" class="form-control" [(ngModel)]="livro.edicao" name="edicao" />
+
+    <label>Editora</label>
+    <input type="text" class="form-control" [(ngModel)]="livro.editora" name="editora" />
+
+    <label>ISBN</label>
+    <input type="text" class="form-control" [(ngModel)]="livro.isbn" name="isbn" />
+
+    <!-- GÊNEROS -->
+    <label>Gêneros *</label>
+    <div class="lista-generos">
+      <label *ngFor="let g of generos" class="genero-item">
+        <input type="checkbox"
+               (change)="toggleGenero(g.idGenero, $any($event.target).checked)">
+        {{ g.nomeDoGenero }}
+      </label>
+    </div>
+
+    <!-- AUTOR DIGITADO -->
+    <label>Autor *</label>
+<input type="text" [(ngModel)]="livro.autorNome" name="autorNome" class="form-control" required />
+
+    <label>Quantidade Inicial</label>
+    <input type="number" class="form-control" [(ngModel)]="livro.quantidade" name="quantidade" />
+
+    <button type="submit" class="btn-laranja w-100 mt-4">
+      Salvar
+    </button>
+
+  </form>
+
+</div>

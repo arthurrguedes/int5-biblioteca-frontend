@@ -1,40 +1,58 @@
 <div class="container-xxl my-4 detalhe">
+
   <div class="breadcrumb text-muted small mb-2">
-    <span class="me-1">🏠</span> / (usuário) / Catálogo / Gênero /
-    <strong>{{ livro?.categoria || '—' }}</strong>
+    <span class="me-1">🏠</span> / Catálogo / Gênero /
+    <strong>{{ generoPrincipal }}</strong>
   </div>
 
   <h2 class="mb-3">Nosso acervo</h2>
 
-  <section class="section-box p-3 p-md-4">
+  <section class="section-box p-3 p-md-4" *ngIf="livro; else notFound">
+
     <div class="d-flex align-items-center justify-content-between mb-3">
-      <span class="badge-cat">{{ livro?.categoria }}</span>
-      <a class="see-more" [routerLink]="['/catalogo']" [queryParams]="{ cat: (livro?.categoria || '').toLowerCase() }">Voltar ao catálogo</a>
+      <span class="badge-cat">{{ generoPrincipal }}</span>
+      <a class="see-more" routerLink="/catalogo">Voltar ao catálogo</a>
     </div>
 
-    <div *ngIf="livro; else notFound" class="row g-4 align-items-start">
+    <div class="row g-4 align-items-start">
+
       <div class="col-12 col-md-4">
-        <div class="cover"><img [src]="livro!.capa" [alt]="livro!.titulo" /></div>
+        <div class="cover">
+          <img class="livro-capa"
+            src="assets/images/livro-sem-nome.jpg"
+            [alt]="livro!.titulo">
+        </div>
       </div>
+
       <div class="col-12 col-md-8">
+
         <h4 class="mb-1 fw-semibold">{{ livro!.titulo }}</h4>
-        <div class="text-muted mb-3">{{ livro!.autor }}</div>
+
+        <div class="text-muted mb-3">
+          <ng-container *ngFor="let a of livro!.livroautor; let last = last">
+            {{ a.autor.nome }}<span *ngIf="!last">, </span>
+          </ng-container>
+        </div>
 
         <ul class="meta">
-          <li><strong>Editora:</strong> {{ livro!.editora }}</li>
+          <li><strong>Editora:</strong> {{ livro!.editora || '—' }}</li>
           <li><strong>ISBN:</strong> {{ livro!.isbn }}</li>
-          <li><strong>Edição/Ano:</strong> {{ livro!.edicaoAno }}</li>
-          <li><strong>Idioma:</strong> {{ livro!.idioma }}</li>
-          <li><strong>Páginas:</strong> {{ livro!.paginas }}</li>
-          <li><strong>Categoria(s):</strong> {{ livro!.categoria }}</li>
+          <li><strong>Edição/Ano:</strong> {{ livro!.edicao }}ª ({{ livro!.ano }})</li>
+          <li><strong>Gênero(s):</strong>
+            <ng-container *ngFor="let g of livro!.livrogenero; let last = last">
+              {{ g.genero.nomeDoGenero }}<span *ngIf="!last">, </span>
+            </ng-container>
+          </li>
         </ul>
 
         <button class="btn btn-reservar mt-2" (click)="reservar()">Reservar</button>
       </div>
-    </div>
 
-    <ng-template #notFound>
-      <div class="text-muted">Livro não encontrado.</div>
-    </ng-template>
+    </div>
   </section>
+
+  <ng-template #notFound>
+    <div class="text-muted">Livro não encontrado.</div>
+  </ng-template>
+
 </div>

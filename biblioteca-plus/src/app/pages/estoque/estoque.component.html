@@ -4,43 +4,42 @@
   </div>
 
   <div class="row g-3">
-
     <!-- Sidebar -->
     <aside class="col-md-3">
       <nav class="side card border-0 shadow-sm">
         <div class="card-body py-3">
           <div class="side-title mb-2">Filtrar por gênero</div>
-          <ul class="list-unstyled mb-0">
-            <li><button class="side-link"
-              [class.active]="!generoSelecionado"
-              (click)="selecionarGenero()">
-              Todos
-            </button></li>
+          <ul class="list-unstyled mb-3">
+            <li>
+              <button class="side-link" [class.active]="!generoSelecionado" (click)="selecionarGenero()">
+                Todos
+              </button>
+            </li>
             <li *ngFor="let g of generos">
-              <button class="side-link"
-                [class.active]="generoSelecionado === g.idGenero"
-                (click)="selecionarGenero(g)">
+              <button class="side-link" [class.active]="generoSelecionado === g.idGenero" (click)="selecionarGenero(g)">
                 {{ g.nomeDoGenero }}
               </button>
             </li>
           </ul>
+
+          <!-- BOTÃO -->
+          <button class="btn-laranja w-100" routerLink="/cadastrar-livro">
+            Cadastrar Livro <!-- texto conforme sua referência visual -->
+          </button>
         </div>
       </nav>
     </aside>
 
+    <!-- Lista -->
     <main class="col-md-9">
-
-      <!-- Cabeçalho -->
       <div class="grid-head">
         <div class="col-livro">Livro</div>
         <div class="col-estoque">Estoque Atual</div>
         <div class="col-status">Status</div>
       </div>
 
-      <!-- Lista -->
       <div class="list">
         <div class="row-item" *ngFor="let item of itensFiltrados">
-
           <div class="col-livro">
             <div class="info">
               <div class="book-title">{{ item.livro.titulo }}</div>
@@ -50,30 +49,23 @@
 
           <div class="col-estoque">
             <button class="qty-btn" (click)="dec(item)">-</button>
-            <input type="number" class="qty-input"
-              [(ngModel)]="item.quantidade"
-              (change)="atualizar(item)" />
+            <input type="number" class="qty-input" [(ngModel)]="item.quantidade" (change)="atualizar(item)" />
             <button class="qty-btn" (click)="inc(item)">+</button>
           </div>
 
           <div class="col-status">
-            <span class="status"
-              [class.ok]="classe(item)==='ok'"
-              [class.last]="classe(item)==='last'"
-              [class.no]="classe(item)==='no'">
+            <span class="status" [class.ok]="classe(item)==='ok'"
+                  [class.last]="classe(item)==='last'"
+                  [class.no]="classe(item)==='no'">
               {{ texto(item) }}
             </span>
           </div>
-
         </div>
 
         <div class="empty" *ngIf="itensFiltrados.length === 0">
           Nenhum livro encontrado.
         </div>
-
       </div>
-
     </main>
-
   </div>
 </div>

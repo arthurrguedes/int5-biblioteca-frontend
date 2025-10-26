@@ -58,9 +58,15 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
+Swagger 
+http://localhost:3001/api-docs/#/
 
+Projeto rodando
 http://localhost:4200/catalogo
 http://localhost:4200/estoque
+http://localhost:4200/catalogo/livro/1 //idlivro que muda aqui
+
+Url crua da aplicação
 http://localhost:3001/api
 http://localhost:3001/api/livro
 http://localhost:3001/api/genero

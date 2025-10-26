@@ -17,6 +17,8 @@ export interface Estoque {
 }
 
 export interface Livro {
+livrogenero: any;
+livroautor: any;
   idLivro: number;
   titulo: string;
   ano?: number;

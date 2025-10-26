@@ -1,30 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CatalogDataService, Livro } from '../../shared/catalog/data.service';
-
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Livro } from '../../models/livro.model';
 
 @Component({
   selector: 'app-livro-detalhe',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './livro-detalhe.component.html',
-  styleUrls: ['./livro-detalhe.component.scss']
+  styleUrls: ['./livro-detalhe.component.scss'],
 })
-export class LivroDetalheComponent implements OnInit, OnDestroy {
+export class LivroDetalheComponent {
+  
   livro: Livro | null = null;
-  private sub?: any;
 
-  constructor(private route: ActivatedRoute, private data: CatalogDataService) {}
-
-  ngOnInit(): void {
-    this.sub = this.route.paramMap.subscribe(p => {
-      const id = Number(p.get('id'));
-      this.livro = this.data.get(id);
-      window.scrollTo({ top: 0 });
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.http.get<Livro>(`http://localhost:3001/api/livro/${id}`).subscribe({
+      next: (resp) => (this.livro = resp),
+      error: () => (this.livro = null),
     });
   }
-  ngOnDestroy(): void { this.sub?.unsubscribe?.(); }
 
-  reservar(){ if (this.livro) alert(`Reserva solicitada para: ${this.livro.titulo}`); }
+  get generoPrincipal(): string {
+    return (
+      this.livro?.livrogenero?.[0]?.genero?.nomeDoGenero ??
+      '—'
+    );
+  }
+
+  reservar() {
+    alert(`Reserva solicitada para: ${this.livro?.titulo}`);
+  }
 }
