@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home/home-page.component';
 
+
+
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   {
@@ -11,7 +13,7 @@ export const routes: Routes = [
   {
     path: 'catalogo',
     loadComponent: () =>
-      import('./pages/catalogo/catalogo.component').then(m => m.CatalogoPageComponent),
+      import('./pages/catalogo/catalogo.component').then(m => m.CatalogoComponent),
     data: { title: 'Catálogo' }
   },
   {
@@ -23,7 +25,7 @@ export const routes: Routes = [
 
   {
     path: 'estoque',
-    loadComponent: () => import('./pages/estoque/estoque.component').then(m => m.EstoquePageComponent),
+    loadComponent: () => import('./pages/estoque/estoque.component').then(m => m.EstoqueComponent),
     data: { title: 'Estoque' }
   },
   {

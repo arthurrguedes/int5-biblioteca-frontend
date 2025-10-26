@@ -1,91 +1,78 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CatalogDataService, Categoria, Livro } from '../../shared/catalog/data.service';
+import { RouterModule } from '@angular/router';
+import { CatalogoService } from '../../services/catalogo.service';
+import { Livro, Genero } from '../../models/livro.model';
 
 @Component({
-  selector: 'app-catalogo-page',
+  selector: 'app-catalogo',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.scss']
+  styleUrls: ['./catalogo.component.css']
 })
-export class CatalogoPageComponent implements OnInit {
-  categorias: Categoria[] = [
-    'Humor', 'Tecnologia', 'Romance', 'Autoajuda', 'Terror',
-    'Ficção Científica', 'Fantasia', 'Mistério', 'Aventura', 'Histórico'
-  ];
-
-  q = '';
-  catSelecionada: Categoria | 'Todas' = 'Todas';
-  private readonly LIMITE = 6;
+export class CatalogoComponent implements OnInit {
 
   livros: Livro[] = [];
+  generos: Genero[] = [];
+  generoSelecionado: number | null = null;
+  q: string = '';
+  carregando: boolean = true;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private data: CatalogDataService
-  ) {}
+  constructor(private catalogoService: CatalogoService) {}
 
   ngOnInit(): void {
-    this.livros = this.data.list();
+    this.carregarGeneros();
+    this.carregarLivros();
+  }
 
-    // reage a mudanças de ?cat=
-    this.route.queryParamMap.subscribe(map => {
-      const qp = (map.get('cat') ?? '').toLowerCase();
-      const cat = this.categorias.find(c => c.toLowerCase() === qp);
-      this.catSelecionada = cat ?? 'Todas';
+  carregarGeneros(): void {
+    this.catalogoService.getGeneros().subscribe({
+      next: (dados) => this.generos = dados,
+      error: (erro) => console.error('Erro ao carregar gêneros:', erro)
     });
   }
 
-  selecionarCategoria(cat: Categoria | 'Todas') {
-    this.catSelecionada = cat;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { cat: cat === 'Todas' ? null : (cat as string).toLowerCase() },
-      queryParamsHandling: 'merge'
+  carregarLivros(): void {
+    this.carregando = true;
+    this.catalogoService.getLivros().subscribe({
+      next: (dados) => {
+        let filtrados = dados;
+
+        if (this.generoSelecionado) {
+          filtrados = filtrados.filter(l =>
+            l.generos?.some(g => g.idGenero === this.generoSelecionado)
+          );
+        }
+
+        if (this.q.trim() !== '') {
+          filtrados = filtrados.filter(l =>
+            l.titulo.toLowerCase().includes(this.q.toLowerCase()) ||
+            l.autores?.some(a => a.nome.toLowerCase().includes(this.q.toLowerCase()))
+          );
+        }
+
+        this.livros = filtrados;
+        this.carregando = false;
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar livros:', erro);
+        this.carregando = false;
+      }
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  verMais(cat: Categoria) {
-    this.selecionarCategoria(cat);
+  pesquisar(): void {
+    this.carregarLivros();
   }
 
-  pesquisar() {
-    this.q = (this.q || '').trim();
-    this.catSelecionada = 'Todas';
+  getAutores(livro: Livro): string {
+    return livro.autores?.map(a => a.nome).join(', ') || 'Autor desconhecido';
   }
 
-  livrosDaCategoria(cat: Categoria): Livro[] {
-    const termo = this.q.trim().toLowerCase();
-    // Se estiver buscando, mostrar livros de todas as categorias
-    if (this.catSelecionada === 'Todas' && termo) {
-      return this.livros
-        .filter(l => l.categoria === cat)
-        .filter(l => l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo));
-    }
-    // Comportamento padrão
-    const filtrados = this.livros
-      .filter(l => l.categoria === cat)
-      .filter(l => !termo || l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo));
-    const mostrarTodos = this.catSelecionada === cat;
-    return mostrarTodos ? filtrados : filtrados.slice(0, this.LIMITE);
+  getGeneros(livro: Livro): string {
+    return livro.generos?.map(g => g.nomeDoGenero).join(', ') || 'Sem gênero';
   }
 
-  secoes(): Categoria[] {
-    const termo = this.q.trim().toLowerCase();
-    if (this.catSelecionada === 'Todas' && termo) {
-      // Só mostra as categorias que têm resultado para a busca
-      return this.categorias.filter(cat =>
-        this.livros.some(l =>
-          l.categoria === cat &&
-          (l.titulo.toLowerCase().includes(termo) || l.autor.toLowerCase().includes(termo))
-        )
-      );
-    }
-    return this.catSelecionada === 'Todas' ? this.categorias : [this.catSelecionada as Categoria];
-  }
 }

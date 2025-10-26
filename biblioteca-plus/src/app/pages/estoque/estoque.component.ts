@@ -1,112 +1,138 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CatalogDataService, Categoria, Livro } from '../../shared/catalog/data.service';
+import { RouterModule } from '@angular/router';
+import { EstoqueService } from '../../services/estoque.service';
 
-interface StockItem {
-  livro: Livro;
-  estoque: number;
-  checked?: boolean;
+interface LivroEstoque {
+  idEstoque: number;
+  quantidade: number;
+  livro: {
+    idLivro: number;
+    titulo: string;
+    autores: string[];
+    generos: { idGenero: number, nomeDoGenero: string }[];
+  };
 }
 
 @Component({
-  selector: 'app-estoque-page',
+  selector: 'app-estoque',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './estoque.component.html',
-  styleUrls: ['./estoque.component.scss']
+  styleUrls: ['./estoque.component.css']
 })
-export class EstoquePageComponent implements OnInit {
-  categorias: Categoria[] = [
-    'Humor','Tecnologia','Romance','Autoajuda','Terror',
-    'Ficção Científica','Fantasia','Mistério','Aventura','Histórico'
-  ];
+export class EstoqueComponent implements OnInit {
 
-  q = '';
-  catSelecionada: Categoria | 'Todas' = 'Todas';
-  statusFiltro: 'Todos' | 'Disponível' | 'Último exemplar' | 'Indisponível' = 'Todos';
+  itens: LivroEstoque[] = [];
+  generos: { idGenero: number, nomeDoGenero: string }[] = [];
+  generoSelecionado: number | null = null;
+  q: string = '';
 
-  itens: StockItem[] = [];
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private data: CatalogDataService
-  ) {}
+  constructor(private estoqueService: EstoqueService) {}
 
   ngOnInit(): void {
-    const base = this.data.list();
-    this.itens = base.map((l): StockItem => ({
-      livro: l,
-      estoque: l.id % 5 === 0 ? 1 : (l.id % 3 === 0 ? 0 : 100),
-    }));
+    this.carregarEstoque();
+  }
 
-    this.route.queryParamMap.subscribe(map => {
-      const qp = (map.get('cat') ?? '').toLowerCase();
-      const cat = this.categorias.find(c => c.toLowerCase() === qp);
-      this.catSelecionada = cat ?? 'Todas';
+  carregarEstoque() {
+    this.estoqueService.getTodos().subscribe({
+      next: (dados: any[]) => {
+        const generosSet = new Map<number, string>();
+
+        this.itens = dados.map(e => {
+          const autores = e.livro?.livroautor?.map((a: { autor: { nome: string }}) => a.autor.nome) || [];
+
+          const generos = e.livro?.livrogenero?.map((g: { genero: { idGenero: number, nomeDoGenero: string }}) => ({
+            idGenero: g.genero.idGenero,
+            nomeDoGenero: g.genero.nomeDoGenero
+          })) || [];
+
+          // ✅ CORRIGIDO: tipagem explícita no forEach
+          for (const g of generos) {
+            generosSet.set(g.idGenero, g.nomeDoGenero);
+          }
+
+          return {
+            idEstoque: e.idEstoque,
+            quantidade: e.quantidade,
+            livro: {
+              idLivro: e.livro.idLivro,
+              titulo: e.livro.titulo,
+              autores,
+              generos
+            }
+          };
+        });
+
+        this.generos = [...generosSet].map(([idGenero, nomeDoGenero]) => ({
+          idGenero,
+          nomeDoGenero
+        }));
+      },
+      error: (err: any) => console.error('Erro ao carregar estoque:', err)
     });
   }
 
-  selecionarCategoria(cat: Categoria | 'Todas') {
-    this.catSelecionada = cat;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { cat: cat === 'Todas' ? null : (cat as string).toLowerCase() },
-      queryParamsHandling: 'merge'
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  // ✅ Atualiza automaticamente a lista no *ngFor
+  get itensFiltrados(): LivroEstoque[] {
+    let lista = [...this.itens];
 
-  pesquisar() {
-    this.q = (this.q || '').trim();
-  }
-
-  get tituloSecao(): string {
-    return this.catSelecionada === 'Todas' ? 'Estoque' : this.catSelecionada;
-  }
-
-  get itensFiltrados(): StockItem[] {
-    let arr = this.itens;
-
-    if (this.catSelecionada !== 'Todas') {
-      arr = arr.filter(i => i.livro.categoria === this.catSelecionada);
-    }
-
-    const t = this.q.trim().toLowerCase();
-    if (t) {
-      arr = arr.filter(i =>
-        i.livro.titulo.toLowerCase().includes(t) ||
-        i.livro.autor.toLowerCase().includes(t)
+    if (this.generoSelecionado !== null) {
+      lista = lista.filter(item =>
+        item.livro.generos.some(g => g.idGenero === this.generoSelecionado)
       );
     }
 
-    if (this.statusFiltro !== 'Todos') {
-      arr = arr.filter(i => this.statusTexto(i) === this.statusFiltro);
+    const texto = this.q.toLowerCase();
+    if (texto) {
+      lista = lista.filter(item =>
+        item.livro.titulo.toLowerCase().includes(texto) ||
+        item.livro.autores.join(', ').toLowerCase().includes(texto)
+      );
     }
 
-    return arr;
+    return lista;
   }
 
-  inc(item: StockItem) { item.estoque = Math.max(0, (item.estoque ?? 0) + 1); }
-  dec(item: StockItem) { item.estoque = Math.max(0, (item.estoque ?? 0) - 1); }
-  blurQuantidade(item: StockItem) {
-    if (item.estoque == null || isNaN(item.estoque as any)) item.estoque = 0;
-    item.estoque = Math.max(0, Math.floor(item.estoque));
+  selecionarGenero(g?: { idGenero: number }) {
+    this.generoSelecionado = g ? g.idGenero : null;
   }
 
-  statusTexto(item: StockItem): 'Disponível' | 'Último exemplar' | 'Indisponível' {
-    const n = item.estoque || 0;
-    if (n === 0) return 'Indisponível';
-    if (n === 1) return 'Último exemplar';
+  autores(item: LivroEstoque): string {
+    return item.livro.autores.join(', ');
+  }
+
+  classe(item: LivroEstoque): string {
+    const q = item.quantidade;
+    if (q === 0) return 'no';
+    if (q <= 5) return 'last';
+    return 'ok';
+  }
+
+  texto(item: LivroEstoque): string {
+    const q = item.quantidade;
+    if (q === 0) return 'Indisponível';
+    if (q <= 5) return 'Último exemplar';
     return 'Disponível';
   }
 
-  statusClasse(item: StockItem): string {
-    const s = this.statusTexto(item);
-    return s === 'Disponível' ? 'ok'
-         : s === 'Último exemplar' ? 'last'
-         : 'no';
+  atualizar(item: LivroEstoque) {
+    this.estoqueService.update(item.idEstoque, item.quantidade).subscribe({
+      next: () => console.log('Estoque atualizado ✅'),
+      error: err => console.error('Erro ao atualizar estoque:', err)
+    });
+  }
+
+  inc(item: LivroEstoque) {
+    item.quantidade++;
+    this.atualizar(item);
+  }
+
+  dec(item: LivroEstoque) {
+    if (item.quantidade > 0) {
+      item.quantidade--;
+      this.atualizar(item);
+    }
   }
 }

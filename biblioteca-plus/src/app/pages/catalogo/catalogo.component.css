@@ -1,0 +1,172 @@
+/* ===================== */
+/*  Catálogo – Estilos   */
+/* ===================== */
+
+.catalog-container {
+  padding: 1.5rem;
+  background: #fafafa;
+}
+
+.catalog-container .breadcrumb {
+  opacity: .85;
+}
+
+.catalog-container .topbar .search {
+  max-width: 420px;
+  width: 100%;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  border: 1px solid #ccc;
+}
+
+/* Sidebar */
+.side {
+  .side-title { font-weight: 600; color: #4b4b4b; }
+  .side-link {
+    width: 100%;
+    text-align: left;
+    padding: .5rem .25rem;
+    border: 0;
+    background: transparent;
+    border-radius: .5rem;
+    color: #4b4b4b;
+    cursor: pointer;
+
+    &:hover { background: #f3f0ff; }
+    &.active {
+      background: #e9e3ff;
+      color: #3c2b84;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Box com borda pontilhada */
+.section-box {
+  border: 2px dashed #f0a150;
+  border-radius: .75rem;
+  background: #fff;
+
+  .badge-cat {
+    padding: .35rem .8rem;
+    background: #e57f18;
+    color: #fff;
+    border-radius: .6rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .see-more {
+    background: none;
+    border: 0;
+    color: #8a4b10;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+/* ===================== */
+/*       G R I D         */
+/* ===================== */
+.books-row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  align-items: stretch;
+}
+
+/* Card do livro */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: #f7f7f9;
+  border-radius: .6rem;
+  padding: .6rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  min-width: 0;
+
+  .cover {
+    position: relative;
+    width: 100%;
+    border-radius: .5rem;
+    overflow: hidden;
+    background: #eee;
+
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 140%;
+    }
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .meta {
+    margin-top: .5rem;
+
+    .title {
+      font-weight: 600;
+      font-size: .95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .author {
+      font-size: .8rem;
+      color: #6c757d;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+  }
+}
+
+/* Placeholders */
+.placeholder-wrap {
+  display: grid;
+  grid-template-columns: inherit;
+  gap: 1rem;
+}
+
+.placeholder {
+  background: #f7f7f9;
+  border-radius: .6rem;
+  padding: .6rem;
+
+  .ph-cover {
+    position: relative;
+    border-radius: .5rem;
+    background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.2s infinite;
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 140%;
+    }
+  }
+
+  .ph-title {
+    height: .9rem;
+    margin-top: .5rem;
+    border-radius: .25rem;
+    background: #eaeaea;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}

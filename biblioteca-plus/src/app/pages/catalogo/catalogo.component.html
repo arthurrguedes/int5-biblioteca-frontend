@@ -1,6 +1,6 @@
 <div class="catalog-container container-xxl my-4">
   <div class="breadcrumb text-muted small mb-2">
-    <span class="me-1">🏠</span> / (usuário) / <strong>Catálogo</strong>
+    <span class="me-1">🏠</span> / Catálogo
   </div>
 
   <div class="row g-3">
@@ -8,13 +8,17 @@
     <aside class="col-12 col-md-3">
       <nav class="side card border-0 shadow-sm">
         <div class="card-body py-3">
-          <div class="side-title mb-2">Categorias</div>
+          <div class="side-title mb-2">Gêneros</div>
           <ul class="list-unstyled mb-0">
             <li>
-              <button class="side-link" [class.active]="catSelecionada==='Todas'" (click)="selecionarCategoria('Todas')">Todas</button>
+              <button class="side-link" [class.active]="generoSelecionado===null" (click)="generoSelecionado=null; carregarLivros()">
+                Todos
+              </button>
             </li>
-            <li *ngFor="let c of categorias">
-              <button class="side-link" [class.active]="catSelecionada===c" (click)="selecionarCategoria(c)">{{ c }}</button>
+            <li *ngFor="let g of generos">
+              <button class="side-link" [class.active]="generoSelecionado===g.idGenero" (click)="generoSelecionado=g.idGenero; carregarLivros()">
+                {{ g.nomeDoGenero }}
+              </button>
             </li>
           </ul>
         </div>
@@ -28,39 +32,40 @@
         <div class="search input-group">
           <input class="form-control"
                  [(ngModel)]="q"
-                 (ngModelChange)="pesquisar()"
                  (keyup.enter)="pesquisar()"
                  placeholder="Digite o nome do livro ou autor" />
-          <button type="button" class="input-group-text btn-search" (click)="pesquisar()" aria-label="Pesquisar">
+          <button type="button" class="input-group-text btn-search" (click)="pesquisar()">
             <i class="bi bi-search"></i>
           </button>
         </div>
       </div>
 
-      <!-- Seções -->
-      <section *ngFor="let cat of secoes()" class="section-box p-3 p-md-4 mb-4">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-          <span class="badge-cat">{{ cat }}</span>
-          <button type="button" class="see-more" (click)="verMais(cat)">Ver mais</button>
-        </div>
-
+      <!-- Seção de livros -->
+      <section class="section-box p-3 p-md-4 mb-4">
         <div class="books-row">
-          <a *ngFor="let l of livrosDaCategoria(cat)"
+          <a *ngFor="let l of livros"
              class="book-card"
-             [routerLink]="['/catalogo/livro', l.id]"
-             [queryParams]="{ cat: l.categoria.toLowerCase() }">
-            <div class="cover"><img [src]="l.capa" [alt]="l.titulo" /></div>
+             [routerLink]="['/catalogo/livro', l.idLivro]">
+            <div class="cover">
+              <img src="assets/images/livro-sem-nome.jpg" alt="{{ l.titulo }}" class="livro-capa">
+            </div>
             <div class="meta">
               <div class="title" [title]="l.titulo">{{ l.titulo }}</div>
-              <div class="author text-muted small">{{ l.autor }}</div>
+              <div class="author text-muted small">{{ getAutores(l) }}</div>
+              <div class="author text-muted small">{{ getGeneros(l) }}</div>
             </div>
           </a>
 
-          <div *ngIf="livrosDaCategoria(cat).length === 0" class="placeholder-wrap">
+          <!-- Placeholders -->
+          <div *ngIf="carregando" class="placeholder-wrap">
             <div class="placeholder" *ngFor="let _ of [1,2,3,4,5,6]">
               <div class="ph-cover"></div>
               <div class="ph-title"></div>
             </div>
+          </div>
+
+          <div *ngIf="!carregando && livros.length===0" class="text-center w-100 py-3">
+            Nenhum livro encontrado.
           </div>
         </div>
       </section>
