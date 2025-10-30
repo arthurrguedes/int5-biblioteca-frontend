@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService, LoginAdmin } from '../../shared/auth/auth.service'; // 1. IMPORTE O SERVIÇO e Interface
+import { AuthService, LoginAdmin } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-login-admin',
@@ -16,7 +16,6 @@ export class LoginAdminComponent {
   senha = '';
   errorMessage: string | null = null;
 
-  // 2. INJETE O SERVIÇO
   constructor(private authService: AuthService, private router: Router) {}
 
   entrarAdmin() {
@@ -26,7 +25,6 @@ export class LoginAdminComponent {
       senha: this.senha
     };
 
-    // 3. CHAME O MÉTODO DO SERVIÇO
     this.authService.loginAdmin(credenciais)
       .subscribe({
         next: (response) => {
