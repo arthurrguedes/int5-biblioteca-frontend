@@ -17,8 +17,8 @@ export interface LoginUsuario {
 }
 
 export interface LoginAdmin {
-  bibliotecario_numero: string;
-  // Adicione senha se o backend exigir futuramente
+  login: string;
+  senha: string;
 }
 
 export interface UsuarioResponse {
@@ -106,7 +106,7 @@ export class AuthService {
   // Método para login de administrador (bibliotecário)
   loginAdmin(credenciais: LoginAdmin): Observable<{ message: string, admin: AdminResponse }> {
      // O backend espera bibliotecario_numero
-    const payload = { bibliotecario_numero: credenciais.bibliotecario_numero };
+    const payload = { login: credenciais.login, senha: credenciais.senha };
     return this.http.post<{ message: string, admin: AdminResponse }>(`${this.apiUrl}/admin/login`, payload)
        .pipe(
         tap(response => {

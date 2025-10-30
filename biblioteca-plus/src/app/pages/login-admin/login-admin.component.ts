@@ -12,19 +12,18 @@ import { AuthService, LoginAdmin } from '../../shared/auth/auth.service'; // 1. 
   styleUrls: ['../login-usuario/login-usuario.component.scss'] // Reutiliza o estilo
 })
 export class LoginAdminComponent {
-  identificacao = ''; // No DTO é bibliotecario_numero
-  senha = ''; // Backend não usa senha por enquanto, mas mantemos
-   errorMessage: string | null = null; // Para exibir erros
+  login = '';
+  senha = '';
+  errorMessage: string | null = null;
 
   // 2. INJETE O SERVIÇO
   constructor(private authService: AuthService, private router: Router) {}
 
   entrarAdmin() {
      this.errorMessage = null; // Limpa erro anterior
-    // O backend espera 'bibliotecario_numero'
     const credenciais: LoginAdmin = {
-      bibliotecario_numero: this.identificacao
-      // senha: this.senha // Descomente se o backend for modificado
+      login: this.login,
+      senha: this.senha
     };
 
     // 3. CHAME O MÉTODO DO SERVIÇO
