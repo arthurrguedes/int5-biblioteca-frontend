@@ -7,11 +7,27 @@ import { ContentBoxComponent } from '../../shared/content-box/content-box.compon
   selector: 'app-contato',
   standalone: true,
   imports: [CommonModule, FormsModule, ContentBoxComponent],
-  templateUrl: './contato.component.html',  // Referência para o HTML
-  styleUrls: ['./contato.component.scss']  // Referência para o SCSS
+  templateUrl: './contato.component.html',
+  styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent {
+  formData = {
+    nome: '',
+    email: '',
+    assunto: '',
+    mensagem: ''
+  };
+
   onSubmit() {
     alert('Mensagem enviada com sucesso!');
+  }
+
+  onClear() {
+    this.formData = {
+      nome: '',
+      email: '',
+      assunto: '',
+      mensagem: ''
+    };
   }
 }

@@ -1,36 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-perfil',
+  selector: 'app-perfil-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './perfil-usuario.component.html',
   styleUrls: ['./perfil-usuario.component.scss']
 })
 export class PerfilUsuarioComponent {
-
   nome = 'Gabriel Souza';
-  email = 'bielsouza@gmail.com';
-  nascimento = '29/08/1998';
-  telefone = '(21) 98765-4321';
-  endereco = 'Rua Santa Luzia, 123 - Centro, Rio de Janeiro - RJ';
-
+  email = 'gabriel.usuario@bibliotecamais.com.br';
+  nascimento = '02/05/2001';
+  telefone = '(21) 98836-1447';
+  endereco = 'Rua Homero, 123, Rio de Janeiro';
   imagemPerfil: string | null = null;
 
-  editarPerfil() {
-    alert('Funcionalidade de edição ainda não implementada.');
-  }
-
-  trocarImagem(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+  trocarImagem(event: any) {
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        this.imagemPerfil = reader.result as string;
-      };
+      reader.onload = (e: any) => (this.imagemPerfil = e.target.result);
       reader.readAsDataURL(file);
     }
   }

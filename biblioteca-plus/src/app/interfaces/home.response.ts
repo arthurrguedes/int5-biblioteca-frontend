@@ -2,6 +2,7 @@ export interface Book {
   id: number;
   title: string;
   coverUrl: string;
+  author: string;
 }
 
 export interface Category {

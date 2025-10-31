@@ -6,6 +6,7 @@ export interface Book {
   id: number;
   title: string;
   coverUrl: string;
+  author: string;
 }
 
 @Component({
@@ -19,14 +20,28 @@ export interface Book {
       <a [routerLink]="seeMoreLink" class="see-more">Ver mais</a>
     </div>
 
-    <div class="section-wrap p-3">
+    <!-- <div class="section-wrap p-3">
       <div class="scroll-row">
         <article class="book-card" *ngFor="let b of books">
           <img [src]="b.coverUrl" [alt]="b.title" loading="lazy" />
           <div class="title">{{ b.title }}</div>
         </article>
       </div>
+    </div> -->
+    <div class="section-wrap p-3">
+      <div *ngIf="books && books.length > 0; else noBooks" class="scroll-row">
+        <article class="book-card" *ngFor="let b of books">
+          <img [src]="b.coverUrl" [alt]="b.title" loading="lazy" />
+          <div class="title">{{ b.title }}</div>
+          <div class="author">{{ b.author }}</div>
+        </article>
+      </div>
+
+      <ng-template #noBooks>
+        <p class="text-muted">Nenhum livro disponível no momento.</p>
+      </ng-template>
     </div>
+
   </section>
   `
 })

@@ -91,14 +91,33 @@ export class HomePageComponent implements OnInit {
 
   constructor(private homeService: HomeService) {}
 
+  // ngOnInit(): void {
+  //   this.homeService.getHomeData().subscribe({
+  //     next: (response) => {
+  //       this.categories = response.categories;
+  //     },
+  //     error: (err) => {
+  //       console.error('Erro ao carregar dados da home:', err);
+  //     }
+  //   });
+  // }
   ngOnInit(): void {
-    this.homeService.getHomeData().subscribe({
-      next: (response) => {
-        this.categories = response.categories;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar dados da home:', err);
-      }
-    });
-  }
+  this.homeService.getHomeData().subscribe({
+    next: (response) => {
+      this.categories = response.categories;
+    },
+    error: (err) => {
+      console.error('Erro ao carregar dados da home:', err);
+
+      // Fallback visual: estrutura sem livros
+      this.categories = [
+        { title: 'Tecnologia', seeMoreLink: '/catalogo?cat=tecnologia', books: [] },
+        { title: 'Direito', seeMoreLink: '/catalogo?cat=direito', books: [] },
+        { title: 'Romance', seeMoreLink: '/catalogo?cat=romance', books: [] }
+      ];
+    }
+  });
+}
+
+
 }

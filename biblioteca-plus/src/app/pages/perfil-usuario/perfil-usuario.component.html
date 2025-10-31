@@ -1,15 +1,10 @@
 <div class="perfil-container">
-  <h1 class="titulo">Meu Perfil</h1>
+  <h1 class="titulo">Perfil do Usuário</h1>
 
   <div class="perfil-box">
     <div class="avatar-container">
       <div class="avatar-wrapper">
-        <img 
-          *ngIf="imagemPerfil; else iconePadrao" 
-          [src]="imagemPerfil" 
-          alt="Foto de perfil" 
-          class="avatar" 
-        />
+        <img *ngIf="imagemPerfil; else iconePadrao" [src]="imagemPerfil" alt="Foto de perfil" class="avatar" />
         <ng-template #iconePadrao>
           <div class="avatar avatar-icone">
             <i class="bi bi-person-circle"></i>
@@ -22,7 +17,7 @@
         </label>
       </div>
     </div>
-    
+
     <div class="campo">
       <label>Nome completo:</label>
       <p>{{ nome }}</p>
@@ -47,7 +42,5 @@
       <label>Endereço:</label>
       <p>{{ endereco }}</p>
     </div>
-
-    <button class="btn-editar" (click)="editarPerfil()">Editar Perfil</button>
   </div>
 </div>
